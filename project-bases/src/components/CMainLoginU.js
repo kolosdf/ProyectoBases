@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid,Button, Icon,Form,Image } from 'semantic-ui-react'
+//import { Router, Route} from 'react-router-dom';
 import imagen from './../images/mainRightImg.png';
 
 const style = {
