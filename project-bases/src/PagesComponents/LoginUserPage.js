@@ -3,8 +3,9 @@ import './Up&BottomMenu.css';
 import UpMenu from '../components/SMenuBar';
 import MainLoginU from '../components/CMainLoginU';
 import BottomMenu from '../components/BottomMenuBar';
+import { withRouter } from 'react-router-dom';
 
-export default class LoginUserPage extends React.Component{
+class LoginUserPage extends React.Component{
     render(){
         return(
             <div className='main-containerBlack'>
@@ -19,3 +20,5 @@ export default class LoginUserPage extends React.Component{
     }
 
 }
+
+export default withRouter(LoginUserPage)

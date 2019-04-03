@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid,Button, Icon,Form,Image } from 'semantic-ui-react'
 //import { Router, Route} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import imagen from './../images/mainRightImg.png';
 
 const style = {
@@ -11,7 +12,7 @@ const style = {
   };
 
 
-export default class MainLoginU extends React.Component{
+class MainLoginU extends React.Component{
     constructor(props){
         super(props);
 
@@ -50,7 +51,7 @@ export default class MainLoginU extends React.Component{
                         <Form.Input icon='lock' iconPosition='left' label='Contraseña' type='password' placeholder='Contraseña'
                                     value={contra} onChange={this.handleChangeContra}/>
 
-                        <Button animated onClick={this.handleClick} content='' >
+                        <Button animated onClick={this.handleClick} >
                             <Button.Content visible>Ingresar</Button.Content>
                             <Button.Content hidden>
                                 <Icon name='arrow right' />
@@ -68,3 +69,5 @@ export default class MainLoginU extends React.Component{
         );
     }
 }
+
+export default withRouter(MainLoginU)
