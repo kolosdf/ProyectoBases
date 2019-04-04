@@ -1,0 +1,35 @@
+.Dialog-title {
+    margin: 0;
+    font-family: sans-serif;
+  }
+
+.backGround{    
+    padding: 100% 100%;
+    background-image: url(./images/loginMiddle.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 0vh;
+    margin: 0;
+}
+
+.formCel{
+    top: 50;
+    bottom: 50;
+}
+
+div#loginButton input{
+    border: none;
+    background-image: url(./images/loginButton.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 50px 205px;
+}
+
+.main-container{
+    background-color: #FFCC00;
+}
+
+.main-containerBlack{
+    background-color: #4D4D4D;
+}
