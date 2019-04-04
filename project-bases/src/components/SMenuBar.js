@@ -13,9 +13,9 @@ export default class UpMenu extends Component {
   handleItemClick = (e, { name }) => {
       this.setState({ activeItem: name });
       if(name==='sobreNos'){
-        alert('Juan felipe Gil - juan.felipe.gil@correounivalle.edu.co\nMelissa Fuentes - melissa.fuentes@correounivalle.edu.co');
+        alert('Empresa que presta un servicio para pedir servicio de taxi de forma rapida y eficiente, que facilita el pago del servicio');
       }else{
-        alert('Para recibir ayuda envie un correo');
+        alert('Juan felipe Gil - juan.felipe.gil@correounivalle.edu.co\nMelissa Fuentes - melissa.fuentes@correounivalle.edu.co');
       }
     }
 

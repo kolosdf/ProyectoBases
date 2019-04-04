@@ -5,16 +5,29 @@ import './index.css';
 //import MainLoginU from './components/CMainLoginU';
 //import LoginUserPage from './PagesComponents/LoginUserPage';
 import MainAppPage from './PagesComponents/MainAppPage';
-
+//import MainApp from './components/CMainAppP';
+//import MainLoginU from './components/CMainLoginU';
+import { Switch, BrowserRouter, Route} from 'react-router-dom';
+import LoginUserPage from './PagesComponents/LoginUserPage';
+import LoginConduPage from './PagesComponents/LoginConduPage';
+import MainUserPage from './PagesComponents/MainUserPage';
+import MainConduPage from './PagesComponents/MainConduPage';
 
 
 class Login extends React.Component {  
   render() {      
       return (
-          <div>
-            <MainAppPage></MainAppPage>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/' component={ () => <MainAppPage />} />
+            <Route path='/User/Main' component={ () => <MainUserPage /> } />
+            <Route path='/User' component={ () => <LoginUserPage /> } />
             
-          </div>              
+            <Route path='/Driver/Main' component={ () => <MainConduPage /> } />
+            <Route path='/Driver' component={ () => <LoginConduPage /> } />
+            <Route path='*' component={ () => <MainAppPage />} />            
+          </Switch>
+        </BrowserRouter>        
       );
     }
   }

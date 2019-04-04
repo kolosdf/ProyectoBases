@@ -1,18 +1,18 @@
 import React from 'react';
 import './Up&BottomMenu.css';
 import UpMenu from '../components/SMenuBar';
-import MainLoginU from '../components/CMainLoginU';
+import MainCondu from '../components/CMainCondu';
 import BottomMenu from '../components/BottomMenuBar';
 import { withRouter } from 'react-router-dom';
 
-class LoginUserPage extends React.Component{
+class MainConduPage extends React.Component{
     render(){
         return(
             <div className='main-containerBlack'>
                 <div className='main-container'>
                     <UpMenu />
 
-                    <MainLoginU />
+                    <MainCondu />
                 </div>
                 <BottomMenu />
             </div>
@@ -21,4 +21,4 @@ class LoginUserPage extends React.Component{
 
 }
 
-export default withRouter(LoginUserPage)
+export default withRouter(MainConduPage)

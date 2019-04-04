@@ -17,8 +17,8 @@ export default class BottomMenu extends React.Component{
         super(props);
 
         this.state = {
-            aboutUsM: 'Hola',
-            ourServicesM: 'Servicios',
+            aboutUsM: 'Empresa que presta un servicio para pedir servicio de taxi de forma rapida y eficiente, que facilita el pago del servicio',
+            ourServicesM: 'Servicios: \n-Pedir taxi\n-Aceptar una solicitud de presta servicio de taxi',
             reviewM: 'No hay reseñas',
             helpM: 'Juan felipe Gil - juan.felipe.gil@correounivalle.edu.co\nMelissa Fuentes - melissa.fuentes@correounivalle.edu.co',
         };
