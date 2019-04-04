@@ -40,7 +40,7 @@ class MainLoginC extends React.Component{
     }
 
     handleClick(){
-        alert('Cel:'+this.state.cel+'\nContra: '+this.state.contra);
+        alert('Cel:'+this.state.cel+'\nContra: '+this.state.contra + '\nPlaca:'+this.state.placa);
     }
 
     render(){
