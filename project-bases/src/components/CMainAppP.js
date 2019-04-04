@@ -43,10 +43,10 @@ class MainApp extends React.Component{
             <Grid centered columns={2}  relaxed='very' style={style}> 
                 <Grid.Column stretched>
                     <Grid.Row style={styleWord}>
-                        Seleccione una Opcion
+                        Seleccione una Opción
                     </Grid.Row>
                     <Grid.Row>
-                        <Button compact style={styleButton} onClick={this.handleClickConduct}>
+                        <Button href='/Driver' compact style={styleButton}>
                             <Image src={imageTaxi} />                            
                         </Button>
                     </Grid.Row>                    
