@@ -1,4 +1,4 @@
-﻿DROP TABLE IF EXISTS Conductor CASCADE;
+DROP TABLE IF EXISTS Conductor CASCADE;
 DROP TABLE IF EXISTS Conduce CASCADE;
 DROP TABLE IF EXISTS Taxi CASCADE;
 DROP TABLE IF EXISTS Registro CASCADE;
@@ -10,12 +10,13 @@ DROP TABLE IF EXISTS Destinos CASCADE;
 CREATE TABLE Conductor (
 	cedula varchar(10) NOT NULL,
 	numCelular varchar(10) NOT NULL,
-	nombre varchar(20) NOT NULL,
+	nombre varchar(30) NOT NULL,
+	apellido varchar(30) NOT NULL,
 	disponibilidad varchar(10) NOT NULL,
-	contrasena varchar(20) NOT NULL,
+	contrasena varchar(50) NOT NULL,
 	fechaNac date NOT NULL,
-	direccion varchar(20) NOT NULL,
-	email varchar(20) NOT NULL,
+	direccion varchar(50) NOT NULL,
+	email varchar(100) NOT NULL,
 	genero varchar(10) NOT NULL,
 	modoPago varchar(8) NOT NULL,
 	numeroC varchar(10),
@@ -25,7 +26,7 @@ CREATE TABLE Conductor (
 );
 
 CREATE TABLE Taxi (
-	placa varchar(6) NOT NULL,
+	placa varchar(7) NOT NULL,
 	marca varchar(10) NOT NULL,
 	modelo varchar(10) NOT NULL,
 	ano varchar(4) NOT NULL,
@@ -57,9 +58,10 @@ CREATE TABLE Registro (
 
 CREATE TABLE Usuario (
 	numCel varchar(10) NOT NULL,
-	nombre varchar(15) NOT NULL,
+	nombre varchar(30) NOT NULL,
+	apellido varchar(30) NOT NULL,
 	dirResidencia varchar(20) NOT NULL,
-	contrasena varchar(20) NOT NULL,
+	contrasena varchar(50) NOT NULL,
 	tipoT varchar(10) NOT NULL,
 	fechaVencT date,
 	numeroT varchar(10) NOT NULL,
