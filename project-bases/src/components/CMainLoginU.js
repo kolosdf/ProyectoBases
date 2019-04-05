@@ -58,7 +58,12 @@ class MainLoginU extends React.Component{
                             </Button.Content>
                         </Button>
                         
-                        <Button content='Registrase' icon='signup'/>
+                        <Button href='/SignIn/User' animated onClick={this.handleClick} >
+                            <Button.Content visible>Registrarse</Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='arrow right' />
+                            </Button.Content>
+                        </Button>
                     </Form>
                 </Grid.Column>
 
