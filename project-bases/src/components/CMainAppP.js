@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid,Button,Image } from 'semantic-ui-react'
-//import { Router, Route} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import imagen from './../images/mainRightImg.png';
 import imageTaxi from './../images/TaxiICON.png';
 import imageUser from './../images/UserICON.png'
@@ -10,19 +10,19 @@ const style = {
     paddingLeft: 0,    
     listStyle: 'none',
     backgroundColor: '#FFCC00'
-  };
+};
 
 const styleButton = {
     color: '#FFFFFF',
     backgroundColor: '#FFCC00'
-}
+};
 
 const styleWord = {
     font: 'Open Sans',
     fontstyle: 'oblique'
-}
+};
 
-export default class MainApp extends React.Component{
+class MainApp extends React.Component{
     constructor(props){
         super(props);
 
@@ -43,15 +43,15 @@ export default class MainApp extends React.Component{
             <Grid centered columns={2}  relaxed='very' style={style}> 
                 <Grid.Column stretched>
                     <Grid.Row style={styleWord}>
-                        Seleccione una Opcion
+                        Seleccione una Opción
                     </Grid.Row>
                     <Grid.Row>
-                        <Button compact style={styleButton} onClick={this.handleClickConduct}>
+                        <Button href='/Driver' compact style={styleButton}>
                             <Image src={imageTaxi} />                            
                         </Button>
                     </Grid.Row>                    
                     <Grid.Row>
-                        <Button compact style={styleButton} onClick={this.handleClickUser}>
+                        <Button href='/User' compact style={styleButton}>
                             <Image src={imageUser} />                            
                         </Button>
                     </Grid.Row>               
@@ -64,3 +64,5 @@ export default class MainApp extends React.Component{
         );
     }
 }
+
+export default withRouter(MainApp);
