@@ -41,6 +41,7 @@ class MainLoginC extends React.Component{
 
     handleClick(){
         alert('Cel:'+this.state.cel+'\nContra: '+this.state.contra + '\nPlaca:'+this.state.placa);
+
     }
 
     render(){
@@ -64,14 +65,9 @@ class MainLoginC extends React.Component{
                             <Button.Content hidden>
                                 <Icon name='arrow right' />
                             </Button.Content>
-                        </Button>
-                        
-                        <Button href='/SignIn/Driver' animated onClick={this.handleClick} >
-                            <Button.Content visible>Registrarse</Button.Content>
-                            <Button.Content hidden>
-                                <Icon name='arrow right' />
-                            </Button.Content>
-                            </Button>
+                        </Button>                       
+
+                        <Button href='/SignIn/Driver' content='Registrase' icon='signup'/>
                     </Form>
                 </Grid.Column>
 
