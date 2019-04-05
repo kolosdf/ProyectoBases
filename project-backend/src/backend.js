@@ -10,20 +10,39 @@ app.get('/', function (req, res) {
     res.send('Hello World!')
   })
 
+//------------------------------------------ CONDUCTOR QUERYS ----------------------------------------------------  
+app.get('/Driver/:conduCedula-:conduPass', function (req,res) {
+  const conduCedula = req.params.conduCedula;
+  const conduPass = req.params.conduPass;
+
+  db.one('SELECT validateDriver($1, $2)', [escape(conduCedula),escape(conduPass)])
+  .then(function (data) {
+    console.log('Usuario Encontrado?', data.validatedriver)
+    res.send(data.validatedriver)
+  })
+  .catch(function (error) {
+    console.log('Error', error)
+  })
+})
+
+//------------------------------------------ USUARIO QUERYS ----------------------------------------------------
+// Validar el celular y la contraseña del usuario (LOGIN)
 app.get('/User/:userCel-:userPass', function (req,res) {
   const userCel = req.params.userCel;
   const userPass = req.params.userPass;
 
-  db.one('SELECT * FROM Usuario WHERE numcel= $1 AND contrasena= $2', [escape(userCel),escape(userPass)])
+  db.one('SELECT validateUser($1, $2)', [escape(userCel),escape(userPass)])
   .then(function (data) {
-    console.log('DATA:', data.numCel)
-    res.send(data.numcel)
+    console.log('Usuario Encontrado?', data.validateuser)
+    res.send(data.validateuser)
   })
   .catch(function (error) {
-    console.log('ERROR:', error)
+    console.log('Error', error)
   })
 })
 
+
+//------------------------------------------ OTHER ----------------------------------------------------
 app.listen(port, () => console.log(`App listening on port ${port}!`))
 
 
