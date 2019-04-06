@@ -53,8 +53,6 @@ class MainLoginU extends React.Component{
 
         })
         .catch( err => console.log('Error: ', err))
-
-        //alert('Cel:'+this.state.cel+'\nContra: '+this.state.contra);
     }
 
     render(){
@@ -78,6 +76,15 @@ class MainLoginU extends React.Component{
                         </Button>
                         
                         <Button href='/SignIn/User' content='Registrase' icon='signup'/>
+                        
+                        <Button href='/' animated='fade'>
+                            <Button.Content visible>
+                                <Icon name='arrow left' />
+                            </Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='arrow left' />
+                            </Button.Content>
+                        </Button>
                     </Form>
                 </Grid.Column>
 

@@ -4,9 +4,7 @@ import { withRouter } from 'react-router-dom';
 //import ImgDispo from './../images/TaxiDisponibleICON.png';
 //import ImgService from './../images/TaxiServicioICON.png';
 import ImgNoService from './../images/TaxiNoServicioICON.png';
-import ImgMap from './../images/MapaICON.png';
 import ImgMiTaxi from './../images/MiTaxiICON.png';
-import ImgPreferencies from './../images/PreferenciasICON.png';
 import ImgExit from './../images/SalirICON.png';
 import ImgAsist from './../images/AsistenciaICON.png';
 import ImgConduTag from './../images/ConduTag.png';
@@ -29,6 +27,11 @@ class MainCondu extends React.Component{
     constructor(props){
         super(props);
 
+        this.state = {
+            cedula: this.props.location.state.cedula,
+            placa: ''
+        };
+
         this.handleClickUser = this.handleClickUser.bind(this)        
         this.handleClickConduct = this.handleClickConduct.bind(this)
     }
@@ -43,7 +46,7 @@ class MainCondu extends React.Component{
 
     render(){
         return(
-            <Grid centered columns={3}  relaxed='very' style={style}> 
+            <Grid centered columns={3}  relaxed='very' style={style}>
                 <Grid.Row>                    
                     <Grid.Column floated='left'>
                         <Image src={ImgConduTag} />
@@ -53,46 +56,31 @@ class MainCondu extends React.Component{
                     </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row>
-                    <Grid.Column stretched>
-                        <Grid.Row>
-                            <Button compact style={styleButton}>
-                                <Image src={ImgNoService} />                            
-                            </Button>
-                        </Grid.Row>                    
-                        <Grid.Row>
-                            <Button compact style={styleButton}>
-                                <Image src={ImgPreferencies} />                            
-                            </Button>
-                        </Grid.Row>               
-                    </Grid.Column>
+                <Grid.Column stretched>                    
+                    <Grid.Row>
+                        <Button compact style={styleButton}>
+                            <Image src={ImgNoService} />                            
+                        </Button>
+                    </Grid.Row>                    
+                    <Grid.Row>
+                        <Button compact style={styleButton}>
+                            <Image src={ImgAsist} />                             
+                        </Button>
+                    </Grid.Row>               
+                </Grid.Column>
 
-                    <Grid.Column stretched>
-                        <Grid.Row>
-                            <Button compact style={styleButton}>
-                                <Image src={ImgMap} />                            
-                            </Button>
-                        </Grid.Row>                    
-                        <Grid.Row>
-                            <Button href='/' compact style={styleButton}>
-                                <Image src={ImgExit} />                            
-                            </Button>
-                        </Grid.Row>               
-                    </Grid.Column>
-
-                    <Grid.Column stretched>
-                        <Grid.Row>
-                            <Button compact style={styleButton}>
-                                <Image src={ImgMiTaxi} />                            
-                            </Button>
-                        </Grid.Row>                    
-                        <Grid.Row>
-                            <Button compact style={styleButton}>
-                                <Image src={ImgAsist} />                            
-                            </Button>
-                        </Grid.Row>               
-                    </Grid.Column>
-                </Grid.Row>                
+                <Grid.Column stretched>                   
+                    <Grid.Row>
+                        <Button compact style={styleButton}>
+                            <Image src={ImgMiTaxi} />                            
+                        </Button>
+                    </Grid.Row>                    
+                    <Grid.Row>
+                        <Button href='/' compact style={styleButton}>
+                            <Image src={ImgExit} />                            
+                        </Button>
+                    </Grid.Row>               
+                </Grid.Column>             
             </Grid>
         );
     }
