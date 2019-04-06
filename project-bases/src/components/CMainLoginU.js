@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid,Button, Icon,Form,Image } from 'semantic-ui-react'
-//import { Router, Route} from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import imagen from './../images/mainRightImg.png';
+import axios from 'axios'
 
 const style = {
     margin: '0.5em',
@@ -35,7 +35,24 @@ class MainLoginU extends React.Component{
     }
 
     handleClick(){
-        alert('Cel:'+this.state.cel+'\nContra: '+this.state.contra);
+        var userCel = this.state.cel;
+        if(userCel === "") userCel = 'vacio';
+
+        var userPass = this.state.contra;
+        if(userPass === "") userPass = 'vacio';
+
+        axios.get(`http://localhost:3500/User/${userCel}-${userPass}`)
+        .then(res => {
+            const userValid = res.data;
+            console.log(userValid);
+            if(userValid){
+                this.props.history.push({pathname:'/User/Main', state:{cel:this.state.cel}});
+            }else{
+                alert('Datos Incorrectos');
+            }
+
+        })
+        .catch( err => console.log('Error: ', err))
     }
 
     render(){
@@ -51,17 +68,21 @@ class MainLoginU extends React.Component{
                         <Form.Input icon='lock' iconPosition='left' label='Contraseña' type='password' placeholder='Contraseña'
                                     value={contra} onChange={this.handleChangeContra}/>
 
-                        <Button href='/User/Main' animated onClick={this.handleClick} >
+                        <Button animated onClick={this.handleClick} >
                             <Button.Content visible>Ingresar</Button.Content>
-                            <Button.Content hidden>
+                            <Button.Content hidden >
                                 <Icon name='arrow right' />
                             </Button.Content>
                         </Button>
                         
-                        <Button href='/SignIn/User' animated onClick={this.handleClick} >
-                            <Button.Content visible>Registrarse</Button.Content>
+                        <Button href='/SignIn/User' content='Registrase' icon='signup'/>
+                        
+                        <Button href='/' animated='fade'>
+                            <Button.Content visible>
+                                <Icon name='arrow left' />
+                            </Button.Content>
                             <Button.Content hidden>
-                                <Icon name='arrow right' />
+                                <Icon name='arrow left' />
                             </Button.Content>
                         </Button>
                     </Form>

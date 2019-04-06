@@ -20,11 +20,13 @@ class Login extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/' component={ () => <MainAppPage />} />
+
             <Route path='/User/Main' component={ () => <MainUserPage /> } />
             <Route path='/User' component={ () => <LoginUserPage /> } />
             
             <Route path='/Driver/Main' component={ () => <MainConduPage /> } />
             <Route path='/Driver' component={ () => <LoginConduPage /> } />
+            
             <Route path='*' component={ () => <MainAppPage />} />            
           </Switch>
         </BrowserRouter>        

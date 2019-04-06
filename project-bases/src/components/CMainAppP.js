@@ -3,7 +3,8 @@ import { Grid,Button,Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
 import imagen from './../images/mainRightImg.png';
 import imageTaxi from './../images/TaxiICON.png';
-import imageUser from './../images/UserICON.png'
+import imageUser from './../images/UserICON.png';
+import imageIngresar from './../images/ingresarTag.png';
 
 const style = {
     margin: '0.5em',
@@ -43,7 +44,7 @@ class MainApp extends React.Component{
             <Grid centered columns={2}  relaxed='very' style={style}> 
                 <Grid.Column stretched>
                     <Grid.Row style={styleWord}>
-                        Seleccione una Opción
+                        <Image src={imageIngresar} />
                     </Grid.Row>
                     <Grid.Row>
                         <Button href='/Driver' compact style={styleButton}>
