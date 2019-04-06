@@ -1,11 +1,11 @@
 import React from 'react';
 import { Grid,Button,Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
-import ImgDispo from './../images/TaxiDisponibleICON.png';
-import ImgService from './../images/TaxiServicioICON.png';
+//import ImgDispo from './../images/TaxiDisponibleICON.png';
+//import ImgService from './../images/TaxiServicioICON.png';
 import ImgNoService from './../images/TaxiNoServicioICON.png';
 import ImgMap from './../images/MapaICON.png';
-import ImgTaxi from './../images/TaxiICON.png';
+import ImgMiTaxi from './../images/MiTaxiICON.png';
 import ImgPreferencies from './../images/PreferenciasICON.png';
 import ImgExit from './../images/SalirICON.png';
 import ImgAsist from './../images/AsistenciaICON.png';
@@ -24,10 +24,6 @@ const styleButton = {
     backgroundColor: '#FFCC00'
 };
 
-const styleWord = {
-    font: 'Open Sans',
-    fontstyle: 'oblique'
-};
 
 class MainCondu extends React.Component{
     constructor(props){
@@ -87,7 +83,7 @@ class MainCondu extends React.Component{
                     <Grid.Column stretched>
                         <Grid.Row>
                             <Button compact style={styleButton}>
-                                <Image src={ImgTaxi} />                            
+                                <Image src={ImgMiTaxi} />                            
                             </Button>
                         </Grid.Row>                    
                         <Grid.Row>
