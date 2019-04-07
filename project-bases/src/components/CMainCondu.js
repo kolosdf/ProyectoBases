@@ -30,10 +30,10 @@ class MainCondu extends React.Component{
         this.state = {
             cedula: this.props.location.state.cedula,
             placa: ''
-        };
+        };        
 
-        this.handleClickUser = this.handleClickUser.bind(this)        
-        this.handleClickConduct = this.handleClickConduct.bind(this)
+        this.handleClickUser = this.handleClickUser.bind(this);      
+        this.handleClickConduct = this.handleClickConduct.bind(this);
     }
 
     handleClickUser(event){
