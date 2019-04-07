@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import ImgUserTag from './../images/UserTag.png';
 import ImgLogo from './../images/logoYellow.png';
 import ImgRegistroUser from './../images/RegistroUserICON.png';
-import ImgSalirSquare from './../images/SalirSquareICON.png';
+import ImgAtras from './../images/AtrasICON.png';
 import axios from 'axios'
 
 //https://www.npmjs.com/package/react-semantic-ui-datepickers
@@ -212,7 +212,7 @@ class SignInUser extends React.Component{
 
                     <Grid.Row>
                         <Button href='/User' compact style={styleButton}>
-                            <Image src={ImgSalirSquare} />                            
+                            <Image src={ImgAtras} />                            
                         </Button>
                     </Grid.Row>
                 </Grid.Column>                

@@ -14,6 +14,7 @@ import MainUserPage from './PagesComponents/MainUserPage';
 import MainConduPage from './PagesComponents/MainConduPage';
 import SignInUserPage from './PagesComponents/SignInUserPage';
 import SignInConduPage from './PagesComponents/SignInDriverPage';
+import ConduMiTaxiPage from './PagesComponents/ConduMiTaxiPage';
 
 
 class Login extends React.Component {  
@@ -28,6 +29,7 @@ class Login extends React.Component {
             <Route path='/User' component={ () => <LoginUserPage /> } />
             
             <Route path='/SignIn/Driver' component={ () => <SignInConduPage /> } />
+            <Route path='/Driver/Main/MiTaxi' component={ () => <ConduMiTaxiPage /> } />
             <Route path='/Driver/Main' component={ () => <MainConduPage /> } />
             <Route path='/Driver' component={ () => <LoginConduPage /> } />
             

@@ -39,7 +39,7 @@ CREATE TABLE Taxi (
 
 CREATE TABLE Conduce (
 	cedula varchar(10) NOT NULL,
-	placa varchar(6) NOT NULL,
+	placa varchar(7) NOT NULL,
 
 	FOREIGN KEY (cedula) REFERENCES Conductor(cedula),
 	FOREIGN KEY (placa) REFERENCES Taxi(placa)

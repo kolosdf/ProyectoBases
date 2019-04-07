@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import ImgConduTag from './../images/ConduTag.png';
 import ImgLogo from './../images/logoYellow.png';
 import ImgRegistroDriver from './../images/RegistroDrivers.png';
-import ImgSalirSquare from './../images/SalirSquareICON.png';
+import ImgAtras from './../images/AtrasICON.png';
 import axios from 'axios';
 
 //https://www.npmjs.com/package/react-semantic-ui-datepickers
@@ -35,7 +35,6 @@ const opcionesModoPago = [
 ]
 
 function getMonthFromString(mon){
-
     var d = Date.parse(mon + "1, 2012");
     if(!isNaN(d)){
        return new Date(d).getMonth() + 1;
@@ -150,7 +149,7 @@ class SignInDriver extends React.Component{
         var banco = this.state.banco;
         if(banco === ""){ banco = 'vacio'; str2 = str2+"Banco\n";}
 
-        if((cedula === "vacio") || (numCel === "vacio") || (nombre === "vacio") | (apellido === "vacio") || (contra === "vacio") ||
+        if((cedula === "vacio") || (numCel === "vacio") || (nombre === "vacio") || (apellido === "vacio") || (contra === "vacio") ||
            (diaNac === "vacio") || (direccion === "vacio") || (email === "vacio") || (genero === "vacio") || (modoPago === "vacio")){
             alert(str1);
         }else if((modoPago === "Debito") && ((numeroC === "vacio") || (banco === "vacio"))){
@@ -248,7 +247,7 @@ class SignInDriver extends React.Component{
 
                     <Grid.Row>
                         <Button href='/Driver' compact style={styleButton}>
-                            <Image src={ImgSalirSquare} />                            
+                            <Image src={ImgAtras} />                            
                         </Button>
                     </Grid.Row>
                 </Grid.Column>

@@ -46,7 +46,7 @@ class MainLoginC extends React.Component{
             const userValid = res.data;
             console.log(userValid);
             if(userValid){
-                this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula}});
+                this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula, placa:''}});
             }else{
                 alert('Datos Incorrectos');
             }

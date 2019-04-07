@@ -9,6 +9,7 @@ import ImgExit from './../images/SalirICON.png';
 import ImgAsist from './../images/AsistenciaICON.png';
 import ImgConduTag from './../images/ConduTag.png';
 import ImgLogo from './../images/logoYellow.png';
+import axios from 'axios';
 
 const style = {
     margin: '0.5em',
@@ -29,19 +30,26 @@ class MainCondu extends React.Component{
 
         this.state = {
             cedula: this.props.location.state.cedula,
-            placa: ''
+            placa: this.props.location.state.placa,
         };        
 
-        this.handleClickUser = this.handleClickUser.bind(this);      
-        this.handleClickConduct = this.handleClickConduct.bind(this);
+        this.handleClickMiTaxi = this.handleClickMiTaxi.bind(this);
+        this.handleClickExit = this.handleClickExit.bind(this);
     }
 
-    handleClickUser(event){
-        alert('Usuario')
+    handleClickMiTaxi(event){
+        this.props.history.push({pathname:'/Driver/Main/MiTaxi', state:{cedula:this.state.cedula, placa:this.state.placa}});
     }
 
-    handleClickConduct(event){
-        alert('Conductor')
+    handleClickExit(event){
+        const cedula = this.state.cedula;
+        const placa = this.state.placa;
+
+        axios.delete(`http://localhost:3500/Driver/Exit/${placa}-${cedula}`)
+            .then(res => {
+                this.props.history.push({pathname:'/'});
+            })
+            .catch( err => console.log('Error: ', err))        
     }
 
     render(){
@@ -71,12 +79,12 @@ class MainCondu extends React.Component{
 
                 <Grid.Column stretched>                   
                     <Grid.Row>
-                        <Button compact style={styleButton}>
+                        <Button compact style={styleButton} onClick={this.handleClickMiTaxi}>
                             <Image src={ImgMiTaxi} />                            
                         </Button>
                     </Grid.Row>                    
                     <Grid.Row>
-                        <Button href='/' compact style={styleButton}>
+                        <Button compact style={styleButton} onClick={this.handleClickExit}>
                             <Image src={ImgExit} />                            
                         </Button>
                     </Grid.Row>               

@@ -48,6 +48,26 @@ CREATE OR REPLACE FUNCTION ValidateDriver (varchar(10),varchar(50)) RETURNS bool
 	END
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION TaxiDisp (varchar(10),varchar(7)) RETURNS varchar AS $$
+	DECLARE
+		conduCedula ALIAS FOR $1;
+		taxiPlaca ALIAS FOR $2;
+		
+	BEGIN
+		IF NOT EXISTS (SELECT * FROM Taxi WHERE placa=taxiPlaca)
+		THEN 
+			RETURN 'Taxi no registrado';
+		END IF;
+		
+		IF EXISTS (SELECT * FROM Conduce WHERE placa=taxiPlaca)
+		THEN 
+			RETURN 'Taxi no disponible';
+		END IF;
+
+		RETURN 'True';
+		
+	END
+$$ LANGUAGE plpgsql;
 
 -----------------------------------------------------------------------------------------
 ------------------------------------- USUARIO -------------------------------------------
