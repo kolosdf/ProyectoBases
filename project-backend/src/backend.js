@@ -12,14 +12,47 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
   })
 
-//------------------------------------------ CONDUCTOR QUERYS ----------------------------------------------------  
+//------------------------------------------ CONDUCTOR QUERYS ----------------------------------------------------
+// Agregar Conductor
+app.post('/SignIn/Driver/:cedula-:numCel-:nombre-:apellido-:contra-:diaNac-:mesNac-:anoNac-:direccion-:email-:genero-:modoPago-:numeroC-:banco', function (req,res) {
+  const cedula = req.params.cedula;
+  const numCel = req.params.numCel;
+  const nombre = req.params.nombre;
+  const apellido = req.params.apellido;
+  const disponibilidad = 'ocupado';
+  const contra = req.params.contra;
+  const diaNac = req.params.diaNac;
+  const mesNac = req.params.mesNac;
+  const anoNac = req.params.anoNac;
+  const fechaNac = anoNac+"-"+mesNac+"-"+diaNac;
+  const direccion = req.params.direccion;
+  const email = req.params.email;
+  const genero = req.params.genero;
+  const modoPago = req.params.modoPago;
+  const numeroC = req.params.numeroC;
+  const banco = req.params.banco;
+  
+  db.one('SELECT AddDriver($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
+                                     [escape(cedula), escape(numCel), escape(nombre), escape(apellido), escape(disponibilidad),
+                                      escape(contra), escape(fechaNac), escape(direccion), escape(email),
+                                      escape(genero), escape(modoPago), escape(numeroC), escape(banco)])
+  .then(function (data) {
+    console.log(data.adddriver);
+    res.send(data.adddriver);
+  })
+  .catch(function (error) {
+    console.log('Error', error)
+  })
+})
+
+//Validar Conductor
 app.get('/Driver/:conduCedula-:conduPass', function (req,res) {
   const conduCedula = req.params.conduCedula;
   const conduPass = req.params.conduPass;
 
   db.one('SELECT validateDriver($1, $2)', [escape(conduCedula),escape(conduPass)])
   .then(function (data) {
-    console.log('Usuario Encontrado?', data.validatedriver);
+    console.log('Conductor Encontrado?', data.validatedriver);
     res.send(data.validatedriver);
   })
   .catch(function (error) {
@@ -28,6 +61,34 @@ app.get('/Driver/:conduCedula-:conduPass', function (req,res) {
 })
 
 //------------------------------------------ USUARIO QUERYS ----------------------------------------------------
+// Agregar Usuario
+app.post('/SignIn/User/:numCel-:nombre-:apellido-:dirResid-:contra-:tipoT-:diaVencT-:mesVencT-:anoVencT-:numeroT-:NumSegT', function (req,res) {
+  const numCel = req.params.numCel;
+  const nombre = req.params.nombre;
+  const apellido = req.params.apellido;
+  const dirResid = req.params.dirResid;
+  const contra = req.params.contra;
+  const tipoT = req.params.tipoT;
+  const diaVencT = req.params.diaVencT;
+  const mesVencT = req.params.mesVencT;
+  const anoVencT = req.params.anoVencT;
+  const fechaVencT = diaVencT+"-"+mesVencT+"-"+anoVencT;  
+  const numeroT = req.params.numeroT;
+  const NumSegT = req.params.NumSegT;
+
+  
+  db.one('SELECT AddUser($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+                                     [escape(numCel), escape(nombre), escape(apellido), escape(dirResid),
+                                      escape(contra), escape(tipoT), escape(fechaVencT), escape(numeroT), escape(NumSegT)])
+  .then(function (data) {
+    console.log(data.adduser);
+    res.send(data.adduser);
+  })
+  .catch(function (error) {
+    console.log('Error', error)
+  })
+})
+
 // Validar el celular y la contraseña del usuario (LOGIN)
 app.get('/User/:userCel-:userPass', function (req,res) {
   const userCel = req.params.userCel;
