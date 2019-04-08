@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import ImgUserTag from './../images/UserTag.png';
 import ImgLogo from './../images/logoYellow.png';
 import ImgRegistroUser from './../images/RegistroUserICON.png';
-import ImgSalirSquare from './../images/SalirSquareICON.png';
+import ImgAtras from './../images/AtrasICON.png';
 import axios from 'axios'
 
 //https://www.npmjs.com/package/react-semantic-ui-datepickers
@@ -175,31 +175,31 @@ class SignInUser extends React.Component{
                 <Grid.Column>
                     <Form widths = 'equal'>
                         <Form.Input icon='phone' iconPosition='left' label='Celular' placeholder='Celular'
-                            value={cel} onChange={this.handleChangeCel}/>
+                            value={cel} onChange={this.handleChangeCel} required/>
 
                         <Form.Group>
                             <Form.Input icon='user' iconPosition='left' label='Nombre' placeholder='Nombre'
-                                value={nombre} onChange={this.handleChangeNombre}/>
+                                value={nombre} onChange={this.handleChangeNombre} required/>
                             <Form.Input icon='user outline' iconPosition='left' label='Apellido' placeholder='Apellido'
-                                value={apellido} onChange={this.handleChangeApellido}/>
+                                value={apellido} onChange={this.handleChangeApellido} required/>
                         </ Form.Group>
 
                         <Form.Input icon='home' iconPosition='left' label='Dirección' placeholder='Dirección'
-                            value={dirResidencia} onChange={this.handleChangeDirResid}/>                        
+                            value={dirResidencia} onChange={this.handleChangeDirResid} required/>                        
                         <Form.Input icon='lock' iconPosition='left' label='Contraseña' type = "password" placeholder='Contraseña'
-                            value={contra} onChange={this.handleChangeContra}/>  
+                            value={contra} onChange={this.handleChangeContra} required/>  
 
                         <Form.Select fluid label='Tarjeta' options={opcionesTipoT} placeholder='Seleccione' 
-                            name='tipoT' value={tipoT} onChange={this.handleChangeTipoT}/>
+                            name='tipoT' value={tipoT} onChange={this.handleChangeTipoT} required/>
 
                         <SemanticDatepicker label='Fecha Vencimiento Tarjeta' icon='calendar alternate' locale={ptLocale}
-                            value={fechaV} onDateChange={this.handleChangeFecha}/>
+                            value={fechaV} onDateChange={this.handleChangeFecha} required/>
                         
                         <Form.Group>
                             <Form.Input icon='credit card' iconPosition='left' label='Numero Tarjeta' placeholder='Numero Tarjeta'
-                                value={numeroT} onChange={this.handleChangeNumeroT}/>                        
+                                value={numeroT} onChange={this.handleChangeNumeroT} required/>                        
                             <Form.Input icon='credit card outline' iconPosition='left' label='Numero de Seguridad Tarjeta' type = "password" placeholder='Numero de seguridad'
-                                value={numSeguridadT} onChange={this.handleChangeNumeroSegT}/>  
+                                value={numSeguridadT} onChange={this.handleChangeNumeroSegT} required/>  
                         </Form.Group>                        
                     </Form>    
                 </Grid.Column>
@@ -212,7 +212,7 @@ class SignInUser extends React.Component{
 
                     <Grid.Row>
                         <Button href='/User' compact style={styleButton}>
-                            <Image src={ImgSalirSquare} />                            
+                            <Image src={ImgAtras} />                            
                         </Button>
                     </Grid.Row>
                 </Grid.Column>                

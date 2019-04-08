@@ -46,7 +46,7 @@ class MainLoginC extends React.Component{
             const userValid = res.data;
             console.log(userValid);
             if(userValid){
-                this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula}});
+                this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula, placa:''}});
             }else{
                 alert('Datos Incorrectos');
             }
@@ -64,9 +64,9 @@ class MainLoginC extends React.Component{
                 <Grid.Column>
                     <Form widths='equal'>
                         <Form.Input icon='id card' iconPosition='left' label='Cedula' placeholder='Cedula'
-                                    value={cedula} onChange={this.handleChangeCedula}/>
+                                    value={cedula} onChange={this.handleChangeCedula} required/>
                         <Form.Input icon='lock' iconPosition='left' label='Contraseña' type='password' placeholder='Contraseña'
-                                    value={contra} onChange={this.handleChangeContra}/>
+                                    value={contra} onChange={this.handleChangeContra} required/>
 
                         <Button animated onClick={this.handleClick} >
                             <Button.Content visible>Ingresar</Button.Content>

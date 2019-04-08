@@ -64,9 +64,9 @@ class MainLoginU extends React.Component{
                 <Grid.Column>
                     <Form widths='equal'>
                         <Form.Input icon='phone' iconPosition='left' label='Celular' placeholder='Celular'
-                                    value={cel} onChange={this.handleChangeCel}/>
+                                    value={cel} onChange={this.handleChangeCel} required/>
                         <Form.Input icon='lock' iconPosition='left' label='Contraseña' type='password' placeholder='Contraseña'
-                                    value={contra} onChange={this.handleChangeContra}/>
+                                    value={contra} onChange={this.handleChangeContra} required/>
 
                         <Button animated onClick={this.handleClick} >
                             <Button.Content visible>Ingresar</Button.Content>

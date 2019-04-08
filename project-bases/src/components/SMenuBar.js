@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Image } from 'semantic-ui-react'
+import { Menu, Image,Modal, Button } from 'semantic-ui-react'
 import image from './../images/logo.png'
 
 const style = {
@@ -8,43 +8,49 @@ const style = {
 };
 
 export default class UpMenu extends Component {
-  state = {}
+  state = {
+    sobreNos: 'Empresa que presta un servicio para pedir servicio de taxi de forma rapida y eficiente, que facilita el pago del servicio',
+    modalAOpen: false,
+  }
 
-  handleItemClick = (e, { name }) => {
-      this.setState({ activeItem: name });
-      if(name==='sobreNos'){
-        alert('Empresa que presta un servicio para pedir servicio de taxi de forma rapida y eficiente, que facilita el pago del servicio');
-      }else{
-        alert('Juan felipe Gil - juan.felipe.gil@correounivalle.edu.co\nMelissa Fuentes - melissa.fuentes@correounivalle.edu.co');
-      }
-    }
+  handleOpen = () => this.setState({ modalAOpen: true })
+  handleClose = () => this.setState({ modalAOpen: false })
 
   render() {
-    const { activeItem } = this.state
+    const sobreNos = this.state.sobreNos;
 
     return (
-      <Menu widths={3} borderless style={style}>
-        
-            <Menu.Item>
-            <Image src={image} />
-            </Menu.Item>
+      <Menu widths={3} borderless style={style}>        
+        <Menu.Item>
+        <Image src={image} />
+        </Menu.Item>
 
-            <Menu.Item
-            name='sobreNos'
-            active={activeItem === 'sobreNos'}
-            onClick={this.handleItemClick}
-            >
-            Sobre Nosotros
-            </Menu.Item>
+        <Modal
+          trigger={<Menu.Item name='sobreNos'> Sobre Nosotros </Menu.Item>}
+          header='Sobre Nosotros'
+          content= {sobreNos}
+          actions={[{ key: 'Entendido', content: 'Entendido', positive: true }]}
+          basic
+        />
 
-            <Menu.Item
-            name='ayuda'
-            active={activeItem === 'ayuda'} 
-            onClick={this.handleItemClick}
-            >
-            Ayuda
-            </Menu.Item>
-        
+        <Modal
+         trigger={<Menu.Item name='ayuda' onClick={this.handleOpen}> Ayuda </Menu.Item>}
+         open={this.state.modalAOpen}
+         onClose={this.handleClose}
+         basic
+        >
+          <Modal.Header>Ayuda</Modal.Header>
+          <Modal.Content>            
+            <Modal.Description> 
+              <h3>Correos:</h3>
+              <p>Juan felipe Gil  -  juan.felipe.gil@correounivalle.edu.co</p>
+              <p>Melissa Fuentes  -  melissa.fuentes@correounivalle.edu.co</p>
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='green' onClick={this.handleClose}> Entendido </Button>
+          </Modal.Actions>
+        </Modal>
       </Menu>
     )
   }
