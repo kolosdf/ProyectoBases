@@ -100,9 +100,13 @@ function createRelationConduce(cedula,placa){
 }
 
 //Obtener Info Taxi
-app.get('/Driver/Main/MiTaxi/:placa-:cedula', function (req,res) {
+  //placa: placa del taxi
+  //cedula: cedula del conductor
+  //assign: True para indicar que se asigna al conductor el taxi. False para pedir la informacion solamente
+app.get('/Driver/Main/MiTaxi/:placa-:cedula-:assign', function (req,res) {
   const cedula = req.params.cedula;
   const placa = req.params.placa;
+  const assign = req.params.assign;
 
   db.one('SELECT * FROM Taxi WHERE placa=$1', [escape(placa)])
   .then(function (data) {    
@@ -113,7 +117,10 @@ app.get('/Driver/Main/MiTaxi/:placa-:cedula', function (req,res) {
       baul: data.baul,
       soat: data.soat,
     }
-    createRelationConduce(cedula,placa);
+
+    if(assign){
+      createRelationConduce(cedula,placa);
+    }    
 
     console.log(resultado);
     res.send(resultado);    
@@ -124,7 +131,31 @@ app.get('/Driver/Main/MiTaxi/:placa-:cedula', function (req,res) {
   })
 })
 
+// Agregar Taxi
+app.post('/Driver/Main/MiTaxi/AddTaxi/:placa-:marca-:modelo-:ano-:baul-:soat', function (req,res) {
+  const placa = req.params.placa;
+  const marca = req.params.marca;
+  const modelo = req.params.modelo;
+  const ano = req.params.ano;
+  const baul = req.params.baul;
+  const soat = req.params.soat;
+
+  
+  db.one('SELECT AddTaxi($1, $2, $3, $4, $5, $6)',
+                                     [escape(placa), escape(marca), escape(modelo), escape(ano),
+                                      escape(baul), escape(soat)])
+  .then(function (data) {
+    console.log(data.addtaxi);
+    res.send(data.addtaxi);
+  })
+  .catch(function (error) {
+    console.log('Error', error)
+  })
+})
+
+//--------------------------------------------------------------------------------------------------------------
 //------------------------------------------ USUARIO QUERYS ----------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------
 // Agregar Usuario
 app.post('/SignIn/User/:numCel-:nombre-:apellido-:dirResid-:contra-:tipoT-:diaVencT-:mesVencT-:anoVencT-:numeroT-:NumSegT', function (req,res) {
   const numCel = req.params.numCel;

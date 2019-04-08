@@ -203,32 +203,32 @@ class SignInDriver extends React.Component{
                 <Grid.Column>
                     <Form widths = 'equal'>
                         <Form.Input icon='id card' iconPosition='left' label='Cedula'  placeholder='Cedula'
-                            value={cedula} onChange={this.handleChangeCedula}/>
+                            value={cedula} onChange={this.handleChangeCedula} required/>
                         <Form.Input icon='phone' iconPosition='left' label='Celular' placeholder='Celular'
-                            value={numCel} onChange={this.handleChangeCel}/>
+                            value={numCel} onChange={this.handleChangeCel} required/>
 
                         <Form.Group>
                             <Form.Input icon='user' iconPosition='left' label='Nombre' placeholder='Nombre'
-                                value={nombre} onChange={this.handleChangeNombre}/>
+                                value={nombre} onChange={this.handleChangeNombre} required/>
                             <Form.Input icon='user outline' iconPosition='left' label='Apellido' placeholder='Apellido'
-                                value={apellido} onChange={this.handleChangeApellido}/>
+                                value={apellido} onChange={this.handleChangeApellido} required/>
                         </ Form.Group>
                         
                         <Form.Input icon='lock' iconPosition='left' label='Contraseña' type = "password" placeholder='Contraseña'
-                            value={contra} onChange={this.handleChangeContra}/>
+                            value={contra} onChange={this.handleChangeContra} required/>
 
                         <SemanticDatepicker label='Fecha Nacimiento' icon='calendar alternate' locale={ptLocale}
-                            value={fechaNac} onDateChange={this.handleChangeFechaNac}/>
+                            value={fechaNac} onDateChange={this.handleChangeFechaNac} required/>
 
                         <Form.Input icon='home' iconPosition='left' label='Dirección' placeholder='Dirección'
-                            value={direccion} onChange={this.handleChangeDir}/>
+                            value={direccion} onChange={this.handleChangeDir} required/>
                         <Form.Input icon='mail' iconPosition='left' label='Email' placeholder='Email'
-                            value={email} onChange={this.handleChangeEmail}/>
+                            value={email} onChange={this.handleChangeEmail} required/>
 
                         <Form.Select fluid label='Genero' options={opcionesGenero} placeholder='Genero' 
-                            name='genero' value={genero} onChange={this.handleChangeGenero}/>
+                            name='genero' value={genero} onChange={this.handleChangeGenero} required/>
                         <Form.Select fluid label='Modo Pago' options={opcionesModoPago} placeholder='Modo Pago' 
-                            name='modoP' value={modoPago} onChange={this.handleChangeModoP}/>
+                            name='modoP' value={modoPago} onChange={this.handleChangeModoP} required/>
 
                         <Form.Group>
                             <Form.Input icon='payment' iconPosition='left' label='Número Tarjeta' placeholder='Número Tarjeta'

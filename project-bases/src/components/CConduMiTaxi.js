@@ -21,6 +21,7 @@ const styleButton = {
     backgroundColor: '#FFCC00'
 };
 
+
 class ConduMiTaxi extends React.Component{
     constructor(props){
         super(props);
@@ -36,12 +37,13 @@ class ConduMiTaxi extends React.Component{
         };
 
         this.handleChangePlaca= this.handleChangePlaca.bind(this);
+        this.fillInputs = this.fillInputs.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleClickAtras = this.handleClickAtras.bind(this);
         this.handleClickAdd = this.handleClickAdd.bind(this);
 
         if(!(this.state.placa === '')){
-            this.handleClick();
+            this.fillInputs();
         }
     }
 
@@ -51,9 +53,36 @@ class ConduMiTaxi extends React.Component{
         this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula, placa:this.state.placa}});
     }
 
+    fillInputs(){
+        const cedula = this.state.cedula;
+        const placa = this.state.placa;
+        const assing = false;
+    
+        axios.get(`http://localhost:3500/Driver/Main/MiTaxi/${placa}-${cedula}-${assing}`)
+        .then(res => {
+            const respuesta = res.data;
+            console.log(respuesta);
+    
+            if(isNullOrUndefined(respuesta)){
+                alert('La placa no está registrada en el sistema');
+            }else if(respuesta === "Taxi no disponible"){
+                alert(respuesta);
+            }else{
+                this.setState({marca: respuesta.marca});
+                this.setState({modelo: respuesta.modelo});
+                this.setState({ano: respuesta.ano});
+                this.setState({baul: respuesta.baul});
+                this.setState({soat: respuesta.soat});
+            }
+        })
+        .catch( err => console.log('Error: ', err))
+    }
+
     handleClick(){
         const cedula = this.state.cedula;
         const placa = this.state.placa;
+        const assing = true;
+
         if(placa === ""){
             alert('Escriba el numero de la placa')
         }else{
@@ -63,7 +92,7 @@ class ConduMiTaxi extends React.Component{
 
                 if(respuesta === 'True'){
                     /////////////////////////////////////////////////////////////////////////
-                    axios.get(`http://localhost:3500/Driver/Main/MiTaxi/${placa}-${cedula}`)
+                    axios.get(`http://localhost:3500/Driver/Main/MiTaxi/${placa}-${cedula}-${assing}`)
                     .then(res => {
                         const respuesta = res.data;
                         console.log(respuesta);
@@ -92,7 +121,7 @@ class ConduMiTaxi extends React.Component{
     }
 
     handleClickAdd(){
-
+        this.props.history.push({pathname:'/Driver/Main/MiTaxi/AddTaxi', state:{cedula:this.state.cedula, placa:this.state.placa}});
     }
 
     render(){

@@ -45,11 +45,16 @@ class MainCondu extends React.Component{
         const cedula = this.state.cedula;
         const placa = this.state.placa;
 
-        axios.delete(`http://localhost:3500/Driver/Exit/${placa}-${cedula}`)
+        if(placa === ''){
+            this.props.history.push({pathname:'/'});
+        }else{
+            axios.delete(`http://localhost:3500/Driver/Exit/${placa}-${cedula}`)
             .then(res => {
                 this.props.history.push({pathname:'/'});
             })
-            .catch( err => console.log('Error: ', err))        
+            .catch( err => console.log('Error: ', err))
+        }
+        
     }
 
     render(){

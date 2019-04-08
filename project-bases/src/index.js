@@ -15,6 +15,7 @@ import MainConduPage from './PagesComponents/MainConduPage';
 import SignInUserPage from './PagesComponents/SignInUserPage';
 import SignInConduPage from './PagesComponents/SignInDriverPage';
 import ConduMiTaxiPage from './PagesComponents/ConduMiTaxiPage';
+import ConduMiTaxiAddPage from './PagesComponents/ConduMiTaxiAddPage';
 
 
 class Login extends React.Component {  
@@ -24,14 +25,15 @@ class Login extends React.Component {
           <Switch>
             <Route exact path='/' component={ () => <MainAppPage />} />
             
-            <Route path='/SignIn/User' component={ () => <SignInUserPage /> } />
-            <Route path='/User/Main' component={ () => <MainUserPage /> } />
-            <Route path='/User' component={ () => <LoginUserPage /> } />
+            <Route exact path='/SignIn/User' component={ () => <SignInUserPage /> } />
+            <Route exact path='/User/Main' component={ () => <MainUserPage /> } />
+            <Route exact path='/User' component={ () => <LoginUserPage /> } />
             
-            <Route path='/SignIn/Driver' component={ () => <SignInConduPage /> } />
-            <Route path='/Driver/Main/MiTaxi' component={ () => <ConduMiTaxiPage /> } />
-            <Route path='/Driver/Main' component={ () => <MainConduPage /> } />
-            <Route path='/Driver' component={ () => <LoginConduPage /> } />
+            <Route exact path='/SignIn/Driver' component={ () => <SignInConduPage /> } />
+            <Route exact path='/Driver/Main/MiTaxi' component={ () => <ConduMiTaxiPage /> } />
+            <Route exact path='/Driver/Main/MiTaxi/AddTaxi' component={ () => <ConduMiTaxiAddPage /> } />
+            <Route exact path='/Driver/Main' component={ () => <MainConduPage /> } />
+            <Route exact path='/Driver' component={ () => <LoginConduPage /> } />
             
             <Route path='*' component={ () => <MainAppPage />} />            
           </Switch>
