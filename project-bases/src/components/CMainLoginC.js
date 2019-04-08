@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid,Button, Icon,Form,Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
+import axios from 'axios'
 import imagen from './../images/mainRightImg.png';
 
 const style = {
@@ -16,23 +17,17 @@ class MainLoginC extends React.Component{
         super(props);
 
         this.state = {
-            cel: '',
+            cedula: '',
             contra: '',
-            placa: ''
         };
 
-        this.handleChangeCel = this.handleChangeCel.bind(this)
-        this.handleChangePlaca = this.handleChangePlaca.bind(this)        
+        this.handleChangeCedula = this.handleChangeCedula.bind(this)       
         this.handleChangeContra = this.handleChangeContra.bind(this)
         this.handleClick = this.handleClick.bind(this)
     }
 
-    handleChangeCel(event){
-        this.setState({cel: event.target.value});
-    }
-
-    handleChangePlaca(event){
-        this.setState({placa: event.target.value});
+    handleChangeCedula(event){
+        this.setState({cedula: event.target.value});
     }
 
     handleChangeContra(event){
@@ -40,35 +35,56 @@ class MainLoginC extends React.Component{
     }
 
     handleClick(){
-        alert('Cel:'+this.state.cel+'\nContra: '+this.state.contra + '\nPlaca:'+this.state.placa);
+        var userCedula = this.state.cedula;
+        if(userCedula === "") userCedula = 'vacio';
+
+        var userPass = this.state.contra;
+        if(userPass === "") userPass = 'vacio';
+
+        axios.get(`http://localhost:3500/Driver/${userCedula}-${userPass}`)
+        .then(res => {
+            const userValid = res.data;
+            console.log(userValid);
+            if(userValid){
+                this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula, placa:''}});
+            }else{
+                alert('Datos Incorrectos');
+            }
+
+        })
+        .catch( err => console.log('Error: ', err))
     }
 
     render(){
-        const cel = this.state.cel;
+        const cedula = this.state.cedula;
         const contra = this.state.contra;
-        const placa = this.state.placa;
 
         return(
             <Grid columns={2}  relaxed='very' style={style}> 
                 <Grid.Column>
                     <Form widths='equal'>
-                        <Form.Input icon='phone' iconPosition='left' label='Celular' placeholder='Celular'
-                                    value={cel} onChange={this.handleChangeCel}/>
-                        <Form.Input icon='taxi' iconPosition='left' label='Placa' placeholder='Placa'
-                                    value={placa} onChange={this.handleChangePlaca}/>
+                        <Form.Input icon='id card' iconPosition='left' label='Cedula' placeholder='Cedula'
+                                    value={cedula} onChange={this.handleChangeCedula} required/>
                         <Form.Input icon='lock' iconPosition='left' label='Contraseña' type='password' placeholder='Contraseña'
-                                    value={contra} onChange={this.handleChangeContra}/>
+                                    value={contra} onChange={this.handleChangeContra} required/>
 
-                        <Button href='/Driver/Main' animated onClick={this.handleClick} >
+                        <Button animated onClick={this.handleClick} >
                             <Button.Content visible>Ingresar</Button.Content>
                             <Button.Content hidden>
                                 <Icon name='arrow right' />
                             </Button.Content>
+                        </Button>                       
+
+                        <Button href='/SignIn/Driver' content='Registrase' icon='signup'/>
+
+                        <Button href='/' animated='fade'>
+                            <Button.Content visible>
+                                <Icon name='arrow left' />
+                            </Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='arrow left' />
+                            </Button.Content>
                         </Button>
-                        
-                        <Button href='/SignIn/Driver' animated onClick={this.handleClick} >
-                            <Button Content = 'Registrarse' icon = 'SignUp'/>
-                            </Button>
                     </Form>
                 </Grid.Column>
 
