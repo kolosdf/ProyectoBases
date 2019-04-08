@@ -43,17 +43,31 @@ const opcionesBaul = [
 class ConduMiTaxiAdd extends React.Component{
     constructor(props){
         super(props);
-
-        this.state = {
-            cedula: this.props.location.state.cedula,
-            placaActual: this.props.location.state.placa,
-            placa: '',
-            marca: '',
-            modelo: '',
-            ano: '',
-            baul: '',
-            soat: '',
-        };
+        
+        try{
+            this.state = {
+                cedula: this.props.location.state.cedula,
+                placaActual: this.props.location.state.placa,
+                placa: '',
+                marca: '',
+                modelo: '',
+                ano: '',
+                baul: '',
+                soat: '',
+            };
+        }catch(err){
+            this.props.history.push({pathname:'/'});
+            this.state = {
+                cedula: '',
+                placaActual: '',
+                placa: '',
+                marca: '',
+                modelo: '',
+                ano: '',
+                baul: '',
+                soat: '',
+            };
+        }
 
         this.handleChangePlaca = this.handleChangePlaca.bind(this);
         this.handleChangeMarca = this.handleChangeMarca.bind(this);

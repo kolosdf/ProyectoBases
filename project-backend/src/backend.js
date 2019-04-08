@@ -79,7 +79,7 @@ app.delete('/Driver/Exit/:placa-:cedula', function (req,res) {
 //////////////////////////////////////
 app.get('/Driver/Main/MiTaxi-Disp/:placa-:cedula', function (req,res) {
   const cedula = req.params.cedula;
-  const placa = req.params.placa;
+  const placa = req.params.placa;  
 
   db.one('SELECT TaxiDisp($1, $2)', [escape(cedula), escape(placa)])
   .then(function (data) {    

@@ -26,15 +26,28 @@ class ConduMiTaxi extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            cedula: this.props.location.state.cedula,
-            placa: this.props.location.state.placa,
-            marca: '',
-            modelo: '',
-            ano: '',
-            baul: '',
-            soat: '',
-        };
+        try{
+            this.state = {
+                cedula: this.props.location.state.cedula,
+                placa: this.props.location.state.placa,
+                marca: '',
+                modelo: '',
+                ano: '',
+                baul: '',
+                soat: '',
+            };
+        }catch(err){
+            this.props.history.push({pathname:'/'});
+            this.state = {
+                cedula: '',
+                placa: '',
+                marca: '',
+                modelo: '',
+                ano: '',
+                baul: '',
+                soat: '',
+            };
+        }
 
         this.handleChangePlaca= this.handleChangePlaca.bind(this);
         this.fillInputs = this.fillInputs.bind(this);

@@ -28,10 +28,18 @@ class MainCondu extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            cedula: this.props.location.state.cedula,
-            placa: this.props.location.state.placa,
-        };        
+        try{
+            this.state = {
+                cedula: this.props.location.state.cedula,
+                placa: this.props.location.state.placa,
+            };
+        }catch(err){
+            this.props.history.push({pathname:'/'});
+            this.state = {
+                cedula: '',
+                placa: '',
+            };
+        }
 
         this.handleClickMiTaxi = this.handleClickMiTaxi.bind(this);
         this.handleClickExit = this.handleClickExit.bind(this);

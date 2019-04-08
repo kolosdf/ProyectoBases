@@ -25,9 +25,16 @@ class MainUser extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            cel: this.props.location.state.cel
-        };
+        try{
+            this.state = {
+                cel: this.props.location.state.cel,
+            };
+        }catch(err){
+            this.props.history.push({pathname:'/'});
+            this.state = {
+                cel: '',
+            };
+        }        
 
         this.handleClickUser = this.handleClickUser.bind(this)        
         this.handleClickConduct = this.handleClickConduct.bind(this)
