@@ -4,6 +4,7 @@ const app = express();
 const port = 3500;
 const pgp = require('pg-promise')(/* options */);
 const db = pgp('postgres://postgres:1144211502@localhost:5434/NotEasyTaxi');
+const { check, validationResult } = require('express-validator/check');
 
 app.use(cors());
 app.use(express.json());
@@ -12,9 +13,28 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
   })
 
+//----------------------------------------------------------------------------------------------------------------
 //------------------------------------------ CONDUCTOR QUERYS ----------------------------------------------------
-// Agregar Conductor
-app.post('/SignIn/Driver/:cedula-:numCel-:nombre-:apellido-:contra-:diaNac-:mesNac-:anoNac-:direccion-:email-:genero-:modoPago-:numeroC-:banco', function (req,res) {
+//----------------------------------------------------------------------------------------------------------------
+///////////////////////////////////////
+////////// Agregar Conductor //////////
+///////////////////////////////////////
+app.post('/SignIn/Driver/:cedula-:numCel-:nombre-:apellido-:contra-:diaNac-:mesNac-:anoNac-:direccion-:email-:genero-:modoPago-:numeroC-:banco', [
+  check('cedula').isNumeric().isLength({min:5, max:15}),
+  check('numCel').isNumeric().isLength({min:10, max:10}),
+  check('nombre').isAlpha(),
+  check('apellido').isAlpha(),
+  check('email').isEmail(),
+  check('numeroC').isNumeric(),
+  check('banco').isAlpha(),
+
+], (req,res) => {
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    console.log({errores: errores.array()})
+    return res.send(JSON.stringify("422"));
+  }
+
   const cedula = req.params.cedula;
   const numCel = req.params.numCel;
   const nombre = req.params.nombre;
@@ -45,8 +65,19 @@ app.post('/SignIn/Driver/:cedula-:numCel-:nombre-:apellido-:contra-:diaNac-:mesN
   })
 })
 
-//Validar Conductor
-app.get('/Driver/:conduCedula-:conduPass', function (req,res) {
+///////////////////////////////////////////////
+////////// Validar Conductor (LOGIN) //////////
+///////////////////////////////////////////////
+app.get(`/Driver/:conduCedula-:conduPass`, [
+  check(`conduCedula`).isNumeric().isLength({min:5, max:15}),  
+], (req,res) => {
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    console.log({errores: errores.array()[0]})
+    return res.send(errores.array()[0].param);
+    //return res.status(422).json(errores.array()[0].param);    
+  }
+
   const conduCedula = req.params.conduCedula;
   const conduPass = req.params.conduPass;
 
@@ -60,7 +91,9 @@ app.get('/Driver/:conduCedula-:conduPass', function (req,res) {
   })
 })
 
-//Cerrar sesion de conductor
+////////////////////////////////////////////////////
+////////// Cierra la sesion del conductor //////////
+////////////////////////////////////////////////////
 app.delete('/Driver/Exit/:placa-:cedula-:dispo', function (req,res) {
   const cedula = req.params.cedula;
   const placa = req.params.placa;
@@ -77,6 +110,9 @@ app.delete('/Driver/Exit/:placa-:cedula-:dispo', function (req,res) {
   })
 })
 
+////////////////////////////////////////////////////////////
+////////// Cambia la disponibilidad del conductor //////////
+////////////////////////////////////////////////////////////
 app.post('/Driver/Dispo/:cedula-:dispo', function (req,res) {
   const cedula = req.params.cedula;
   const dispo = req.params.dispo;  
@@ -88,8 +124,10 @@ app.post('/Driver/Dispo/:cedula-:dispo', function (req,res) {
   })
 })
 
-//////////////////////////////////////////////////////////
-app.get('/Driver/Main/MiTaxi-Disp/:placa-:cedula', function (req,res) {
+//////////////////////////////////////////////////////
+////////// Verifica disponibilidad del taxi //////////
+//////////////////////////////////////////////////////
+app.get(`/Driver/Main/MiTaxi-Disp/:placa-:cedula`, function (req,res) {
   const cedula = req.params.cedula;
   const placa = req.params.placa;  
 
@@ -100,7 +138,9 @@ app.get('/Driver/Main/MiTaxi-Disp/:placa-:cedula', function (req,res) {
   })
 })
 
-
+////////////////////////////////////////////////////
+////////// Le asigna el taxi al conductor //////////
+////////////////////////////////////////////////////
 function createRelationConduce(cedula,placa){
   db.none('INSERT INTO conduce VALUES ($1, $2)', [escape(cedula),escape(placa)])
   .then(function (data) {    
@@ -111,11 +151,13 @@ function createRelationConduce(cedula,placa){
   })
 }
 
-//Obtener Info Taxi
+///////////////////////////////////////
+////////// Obtener Info Taxi //////////
   //placa: placa del taxi
   //cedula: cedula del conductor
   //assign: True para indicar que se asigna al conductor el taxi. False para pedir la informacion solamente
-app.get('/Driver/Main/MiTaxi/:placa-:cedula-:assign', function (req,res) {
+///////////////////////////////////////
+app.get(`/Driver/Main/MiTaxi/:placa-:cedula-:assign`, function (req,res) {
   const cedula = req.params.cedula;
   const placa = req.params.placa;
   const assign = req.params.assign;
@@ -143,15 +185,26 @@ app.get('/Driver/Main/MiTaxi/:placa-:cedula-:assign', function (req,res) {
   })
 })
 
-// Agregar Taxi
-app.post('/Driver/Main/MiTaxi/AddTaxi/:placa-:marca-:modelo-:ano-:baul-:soat', function (req,res) {
+//////////////////////////////////
+////////// Agregar Taxi //////////
+//////////////////////////////////
+app.post('/Driver/Main/MiTaxi/AddTaxi/:placa-:marca-:modelo-:ano-:baul-:soat', [
+  check('placa').isAlphanumeric().isLength({min:6, max:7}),
+  check('marca').isAlpha(),
+  check('soat').isNumeric(),
+], (req,res) => {
+
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    console.log({errores: errores.array()});
+    return res.send(JSON.stringify("Campos Invalidos")); //422
+  }
   const placa = req.params.placa;
   const marca = req.params.marca;
   const modelo = req.params.modelo;
   const ano = req.params.ano;
   const baul = req.params.baul;
   const soat = req.params.soat;
-
   
   db.one('SELECT AddTaxi($1, $2, $3, $4, $5, $6)',
                                      [escape(placa), escape(marca), escape(modelo), escape(ano),
@@ -168,8 +221,22 @@ app.post('/Driver/Main/MiTaxi/AddTaxi/:placa-:marca-:modelo-:ano-:baul-:soat', f
 //--------------------------------------------------------------------------------------------------------------
 //------------------------------------------ USUARIO QUERYS ----------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------
-// Agregar Usuario
-app.post('/SignIn/User/:numCel-:nombre-:apellido-:dirResid-:contra-:tipoT-:diaVencT-:mesVencT-:anoVencT-:numeroT-:NumSegT', function (req,res) {
+/////////////////////////////////////
+////////// Agregar Usuario ////////// 
+/////////////////////////////////////
+app.post(`/SignIn/User/:numCel-:nombre-:apellido-:dirResid-:contra-:tipoT-:diaVencT-:mesVencT-:anoVencT-:numeroT-:NumSegT`, [
+  check('numCel').isNumeric().isLength({min:10, max:10}),
+  check('nombre').isAlpha(),
+  check('apellido').isAlpha(),
+  check('numeroT').isNumeric(),
+  check('NumSegT').isNumeric(),
+
+], (req,res) => {
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    console.log({errores: errores.array()})
+    return res.send(JSON.stringify("422"));
+  }
   const numCel = req.params.numCel;
   const nombre = req.params.nombre;
   const apellido = req.params.apellido;
@@ -196,8 +263,17 @@ app.post('/SignIn/User/:numCel-:nombre-:apellido-:dirResid-:contra-:tipoT-:diaVe
   })
 })
 
-// Validar el celular y la contraseña del usuario (LOGIN)
-app.get('/User/:userCel-:userPass', function (req,res) {
+//////////////////////////////////////////////
+////////// Validar Usuario (LOGIN) //////////
+/////////////////////////////////////////////
+app.get(`/User/:userCel-:userPass`, [
+  check(`userCel`).isNumeric().isLength({min:10, max:10}),
+], (req,res) => {
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    console.log({errores: errores.array()[0]})
+    return res.send(errores.array()[0].param);
+  }
   const userCel = req.params.userCel;
   const userPass = req.params.userPass;
 
@@ -212,8 +288,9 @@ app.get('/User/:userCel-:userPass', function (req,res) {
   })
 })
 
-
+//-----------------------------------------------------------------------------------------------------
 //------------------------------------------ OTHER ----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------
 app.listen(port, () => console.log(`App listening on port ${port}!`))
 
 

@@ -2,7 +2,9 @@ import React from 'react';
 import { Grid,Button, Icon,Form,Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
 import imagen from './../images/mainRightImg.png';
-import axios from 'axios'
+import axios from 'axios';
+import { isString } from 'util';
+import ImgUserTag from './../images/UserTag.png';
 
 const style = {
     margin: '0.5em',
@@ -36,16 +38,15 @@ class MainLoginU extends React.Component{
 
     handleClick(){
         var userCel = this.state.cel;
-        if(userCel === "") userCel = 'vacio';
-
         var userPass = this.state.contra;
-        if(userPass === "") userPass = 'vacio';
 
         axios.get(`http://localhost:3500/User/${userCel}-${userPass}`)
         .then(res => {
             const userValid = res.data;
             console.log(userValid);
-            if(userValid){
+            if(isString(userValid)){
+                alert('Valor invalido para numero de celular');
+            }else if(userValid){
                 this.props.history.push({pathname:'/User/Main', state:{cel:this.state.cel}});
             }else{
                 alert('Datos Incorrectos');
@@ -62,6 +63,7 @@ class MainLoginU extends React.Component{
         return(
             <Grid columns={2}  relaxed='very' style={style}> 
                 <Grid.Column>
+                    <Image src={ImgUserTag} />
                     <Form widths='equal'>
                         <Form.Input icon='phone' iconPosition='left' label='Celular' placeholder='Celular'
                                     value={cel} onChange={this.handleChangeCel} required/>

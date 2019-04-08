@@ -101,52 +101,56 @@ class SignInUser extends React.Component{
     handleChangeNumeroSegT(event){ this.setState({numSeguridadT: event.target.value}) }
 
     handleClick(){
-        var str1 = "Campos Vacios:\n";
-
-        var cel = this.state.cel;
-        if(cel === ""){ cel = 'vacio'; str1 = str1+"Número de Celular\n";}
-        var nombre = this.state.nombre;
-        if(nombre === ""){ nombre = 'vacio'; str1 = str1+"Nombre\n";}
-        var apellido = this.state.apellido;   
-        if(apellido === ""){ apellido = 'vacio'; str1 = str1+"Apellido\n";} 
-        var dirResidencia = this.state.dirResidencia;
-        if(dirResidencia === ""){ dirResidencia = 'vacio'; str1 = str1+"Dirección de Residencia\n";}
         var contra = this.state.contrasena;
-        if(contra === ""){ contra = 'vacio'; str1 = str1+"Contraseña\n";}
-        var tipoT = this.state.tipoT;
-        if(tipoT === ""){ tipoT = 'vacio'; str1 = str1+"Tarjeta\n";}
+        var contraInvalida = (contra.length<5);
 
-        var diaVencT = this.state.diaVencT;
-        var mesVencT = this.state.mesVencT;
-        var anoVencT = this.state.anoVencT;
-        if((diaVencT === "") || (mesVencT === "") || (anoVencT === "")){
-            diaVencT = 'vacio';
-            mesVencT = 'vacio';
-            anoVencT = 'vacio';             
-            str1 = str1+"Fecha de Vencimiento de tarjeta\n";
-        }
-
-        var numeroT = this.state.numeroT;
-        if(numeroT === ""){ numeroT = 'vacio'; str1 = str1+"Numero de Tarjeta\n";}
-        var numSeguridadT = this.state.numSeguridadT;
-        if(numSeguridadT === ""){ numSeguridadT = 'vacio'; str1 = str1+"Numero de Seguridad de Tarjeta\n";}
-
-        if((cel === "vacio") || (nombre === "vacio") | (apellido === "vacio") || (dirResidencia === "vacio") || (contra === "vacio") ||
-           (tipoT === "vacio")  || (diaVencT === "vacio") || (numeroT === "vacio") || (numSeguridadT === "vacio")){
-            alert(str1);
+        if(contraInvalida){
+            alert('Contraseña invalida, la contraseña debe se de minimo 5 digitos')
         }else{
-            axios.post(`http://localhost:3500/SignIn/User/${cel}-${nombre}-${apellido}-${dirResidencia}-${contra}-${tipoT}-${diaVencT}-${mesVencT}-${anoVencT}-${numeroT}-${numSeguridadT}`)
-            .then(res => {
-                const mensaje = res.data;
-                console.log(mensaje);
-                if(mensaje === 'Usuario Creado'){
-                    this.props.history.push({pathname:'/User'});
-                }else{
-                    alert('El numero de celular ya está registrado');
-                }
+            var str1 = "Campos Vacios:\n";
 
-            })
-            .catch( err => console.log('Error: ', err))
+            var cel = this.state.cel;
+            if(cel === ""){ str1 = str1+"Número de Celular\n";}
+            var nombre = this.state.nombre;
+            if(nombre === ""){ str1 = str1+"Nombre\n";}
+            var apellido = this.state.apellido;   
+            if(apellido === ""){ str1 = str1+"Apellido\n";} 
+            var dirResidencia = this.state.dirResidencia;
+            if(dirResidencia === ""){ str1 = str1+"Dirección de Residencia\n";}
+            var tipoT = this.state.tipoT;
+            if(tipoT === ""){ str1 = str1+"Tarjeta\n";}
+
+            var diaVencT = this.state.diaVencT;
+            var mesVencT = this.state.mesVencT;
+            var anoVencT = this.state.anoVencT;
+            if((diaVencT === "") || (mesVencT === "") || (anoVencT === "")){           
+                str1 = str1+"Fecha de Vencimiento de tarjeta\n";
+            }
+
+            var numeroT = this.state.numeroT;
+            if(numeroT === ""){ str1 = str1+"Numero de Tarjeta\n";}
+            var numSeguridadT = this.state.numSeguridadT;
+            if(numSeguridadT === ""){ str1 = str1+"Numero de Seguridad de Tarjeta\n";}
+
+            if((cel === "") || (nombre === "") | (apellido === "") || (dirResidencia === "") || (contra === "") ||
+            (tipoT === "")  || (diaVencT === "") || (numeroT === "") || (numSeguridadT === "")){
+                alert(str1);
+            }else{
+                axios.post(`http://localhost:3500/SignIn/User/${cel}-${nombre}-${apellido}-${dirResidencia}-${contra}-${tipoT}-${diaVencT}-${mesVencT}-${anoVencT}-${numeroT}-${numSeguridadT}`)
+                .then(res => {
+                    const mensaje = res.data;
+                    console.log(mensaje);
+                    if(mensaje === '422'){
+                        alert('Campos Invalidos')
+                    }else if(mensaje === 'Usuario Creado'){
+                        this.props.history.push({pathname:'/User'});
+                    }else{
+                        alert('El numero de celular ya está registrado');
+                    }
+
+                })
+                .catch( err => console.log('Error: ', err))
+            }
         }
     }
 

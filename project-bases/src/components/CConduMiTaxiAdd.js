@@ -34,7 +34,7 @@ const opcionesAno = [
 ]
 
 const opcionesBaul = [
-    { key: 'P', text: 'Pequeño', value: 'Pequeño' },
+    { key: 'P', text: 'Pequeño', value: 'Pequeno' },
     { key: 'M', text: 'Mediano', value: 'Mediano' },
     { key: 'G', text: 'Grande', value: 'Grande' },
 ]
@@ -100,20 +100,20 @@ class ConduMiTaxiAdd extends React.Component{
         var str1 = "Campos Vacios:\n";
 
         var placa = this.state.placa;
-        if(placa === ""){ placa = 'vacio'; str1 = str1+"Placa\n";}
+        if(placa === ""){ placa='vacio'; str1 = str1+"Placa\n";}
         var marca = this.state.marca;
-        if(marca === ""){ marca = 'vacio'; str1 = str1+"Marca\n";}
+        if(marca === ""){ str1 = str1+"Marca\n";}
         var modelo = this.state.modelo;
-        if(modelo === ""){ modelo = 'vacio'; str1 = str1+"Modelo\n";}
+        if(modelo === ""){ str1 = str1+"Modelo\n";}
         var ano = this.state.ano;
-        if(ano === ""){ ano = 'vacio'; str1 = str1+"Año\n";}
+        if(ano === ""){ str1 = str1+"Año\n";}
         var baul = this.state.baul;
-        if(baul === ""){ baul = 'vacio'; str1 = str1+"Baul\n";}
+        if(baul === ""){ str1 = str1+"Baul\n";}
         var soat = this.state.soat;
-        if(soat === ""){ soat = 'vacio'; str1 = str1+"Soat\n";}        
+        if(soat === ""){ str1 = str1+"Soat\n";}        
 
-        if((placa === "vacio") || (marca === "vacio") || (modelo === "vacio") || 
-           (ano === "vacio") || (baul === "vacio") || (soat === "vacio")){
+        if((placa === "vacio") || (marca === "") || (modelo === "") || 
+           (ano === "") || (baul === "") || (soat === "")){
             alert(str1);
         }else{
             axios.post(`http://localhost:3500/Driver/Main/MiTaxi/AddTaxi/${placa}-${marca}-${modelo}-${ano}-${baul}-${soat}`)

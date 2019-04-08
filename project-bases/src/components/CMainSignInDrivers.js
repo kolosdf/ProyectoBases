@@ -12,6 +12,7 @@ import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import ptLocale from 'react-semantic-ui-datepickers/dist/locales/es-ES';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 
+
 const style = {
     margin: '0.5em',
     paddingLeft: 0,    
@@ -111,67 +112,71 @@ class SignInDriver extends React.Component{
     handleChangeNumC(event){ this.setState({numeroC: event.target.value}); }
     handleChangeBanco(event){ this.setState({banco: event.target.value}); }
 
-    handleClick(){
-        var str1 = "Campos Vacios:\n";
-        var str2 = "";
-
-        var cedula = this.state.cedula;
-        if(cedula === ""){ cedula = 'vacio'; str1 = str1+"Cedula\n";}
-        var numCel = this.state.numCel;
-        if(numCel === ""){ numCel = 'vacio'; str1 = str1+"Número de Celular\n";}
-        var nombre = this.state.nombre;
-        if(nombre === ""){ nombre = 'vacio'; str1 = str1+"Nombre\n";}
-        var apellido = this.state.apellido;   
-        if(apellido === ""){ apellido = 'vacio'; str1 = str1+"Apellido\n";}     
+    handleClick(){                
         var contra = this.state.contra;
-        if(contra === ""){ contra = 'vacio'; str1 = str1+"Contraseña\n";}
+        var contraInvalida = (contra.length<5);
 
-        var diaNac = this.state.diaNac;
-        var mesNac = this.state.mesNac;
-        var anoNac = this.state.anoNac;
-        if((diaNac === "") || (mesNac === "") || (anoNac === "")){
-            diaNac = 'vacio';
-            mesNac = 'vacio';
-            anoNac = 'vacio';             
-            str1 = str1+"Fecha de Nacimiento\n";
-        }
-
-        var direccion = this.state.direccion;
-        if(direccion === ""){ direccion = 'vacio'; str1 = str1+"Dirección\n";}
-        var email = this.state.email;
-        if(email === ""){ email = 'vacio'; str1 = str1+"Email\n";}
-        var genero = this.state.genero;
-        if(genero === ""){ genero = 'vacio'; str1 = str1+"Genero\n";}
-        var modoPago = this.state.modoPago;
-        if(modoPago === ""){ modoPago = 'vacio'; str1 = str1+"Modo Pago\n";}
-        var numeroC = this.state.numeroC;
-        if(numeroC === ""){ numeroC = 'vacio'; str2 = str1+"Numero Cuenta\n";}
-        var banco = this.state.banco;
-        if(banco === ""){ banco = 'vacio'; str2 = str2+"Banco\n";}
-
-        if((cedula === "vacio") || (numCel === "vacio") || (nombre === "vacio") || (apellido === "vacio") || (contra === "vacio") ||
-           (diaNac === "vacio") || (direccion === "vacio") || (email === "vacio") || (genero === "vacio") || (modoPago === "vacio")){
-            alert(str1);
-        }else if((modoPago === "Debito") && ((numeroC === "vacio") || (banco === "vacio"))){
-            alert(str2)
+        if(contraInvalida){
+            alert('Contraseña invalida, la contraseña debe se de minimo 5 digitos')
         }else{
-            if(modoPago === "Efectivo"){
-                numeroC = null;
-                banco = null;
+            var str1 = "Campos Vacios:\n";
+            var str2 = "";
+            
+            var cedula = this.state.cedula;
+            if(cedula === ""){ str1 = str1+"Cedula\n";}
+            var numCel = this.state.numCel;
+            if(numCel === ""){ str1 = str1+"Número de Celular\n";}
+            var nombre = this.state.nombre;
+            if(nombre === ""){ str1 = str1+"Nombre\n";}
+            var apellido = this.state.apellido;   
+            if(apellido === ""){ str1 = str1+"Apellido\n";}     
+
+            var diaNac = this.state.diaNac;
+            var mesNac = this.state.mesNac;
+            var anoNac = this.state.anoNac;
+            if((diaNac === "") || (mesNac === "") || (anoNac === "")){            
+                str1 = str1+"Fecha de Nacimiento\n";
             }
 
-            axios.post(`http://localhost:3500/SignIn/Driver/${cedula}-${numCel}-${nombre}-${apellido}-${contra}-${diaNac}-${mesNac}-${anoNac}-${direccion}-${email}-${genero}-${modoPago}-${numeroC}-${banco}`)
-            .then(res => {
-                const mensaje = res.data;
-                console.log(mensaje);
-                if(mensaje === 'Usuario Creado'){
-                    this.props.history.push({pathname:'/Driver'});
-                }else{
-                    alert('La cedula ya está registrada');
+            var direccion = this.state.direccion;
+            if(direccion === ""){ str1 = str1+"Dirección\n";}
+            var email = this.state.email;
+            if(email === ""){ str1 = str1+"Email\n";}
+            var genero = this.state.genero;
+            if(genero === ""){ str1 = str1+"Genero\n";}
+            var modoPago = this.state.modoPago;
+            if(modoPago === ""){ str1 = str1+"Modo Pago\n";}
+            var numeroC = this.state.numeroC;
+            if(numeroC === ""){ str2 = str1+"Numero Cuenta\n";}
+            var banco = this.state.banco;
+            if(banco === ""){ str2 = str2+"Banco\n";}
+
+            if((cedula === "") || (numCel === "") || (nombre === "") || (apellido === "") || (contra === "") ||
+            (diaNac === "") || (direccion === "") || (email === "") || (genero === "") || (modoPago === "")){
+                alert(str1);
+            }else if((modoPago === "Debito") && ((numeroC === "") || (banco === ""))){
+                alert(str2)
+            }else{
+                if(modoPago === "Efectivo"){
+                    numeroC = 0;
+                    banco = "none";
                 }
 
-            })
-            .catch( err => console.log('Error: ', err))
+                axios.post(`http://localhost:3500/SignIn/Driver/${cedula}-${numCel}-${nombre}-${apellido}-${contra}-${diaNac}-${mesNac}-${anoNac}-${direccion}-${email}-${genero}-${modoPago}-${numeroC}-${banco}`)
+                .then(res => {
+                    const mensaje = res.data;
+                    console.log(mensaje);
+                    if(mensaje === '422'){
+                        alert('Campos Invalidos')
+                    }else if(mensaje === 'Usuario Creado'){
+                        this.props.history.push({pathname:'/Driver'});
+                    }else{
+                        alert('La cedula ya está registrada');
+                    }
+
+                })
+                .catch( err => console.log('Error: ', err))
+            }
         }
     }
 
