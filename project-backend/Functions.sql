@@ -44,6 +44,42 @@ CREATE OR REPLACE FUNCTION ValidateDriver (varchar(10),varchar(50)) RETURNS bool
 	END
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION ChangeDispo (varchar(10),varchar(10)) RETURNS boolean AS $$
+	DECLARE
+		conduCedula ALIAS FOR $1;
+		Cdispo ALIAS FOR $2;		
+		
+	BEGIN
+		IF EXISTS (SELECT * FROM Conductor WHERE cedula= conduCedula)
+		THEN 
+			UPDATE public.conductor
+				SET disponibilidad=Cdispo
+				WHERE cedula=conduCedula;
+			RETURN True;
+		END IF;
+		
+		RETURN False;
+		
+	END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION ExitDriver (varchar(10),varchar(7),varchar(10)) RETURNS boolean AS $$
+	DECLARE
+		conduCedula ALIAS FOR $1;
+		placaT ALIAS FOR $2;
+		Cdispo ALIAS FOR $3;		
+		
+	BEGIN
+		DELETE FROM conduce WHERE cedula = conduCedula AND placa = placaT;
+		UPDATE public.conductor
+				SET disponibilidad = Cdispo
+				WHERE cedula = conduCedula;		
+		
+		RETURN True;
+		
+	END
+$$ LANGUAGE plpgsql;
+
 --------------------------------------- TAXI --------------------------------------------
 -----------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION TaxiDisp (varchar(10),varchar(7)) RETURNS varchar AS $$

@@ -61,11 +61,12 @@ app.get('/Driver/:conduCedula-:conduPass', function (req,res) {
 })
 
 //Cerrar sesion de conductor
-app.delete('/Driver/Exit/:placa-:cedula', function (req,res) {
+app.delete('/Driver/Exit/:placa-:cedula-:dispo', function (req,res) {
   const cedula = req.params.cedula;
   const placa = req.params.placa;
+  const dispo = req.params.dispo;
 
-  db.none('DELETE FROM conduce WHERE cedula=$1 AND placa=$2', [escape(cedula),escape(placa)])
+  db.one('SELECT ExitDriver($1, $2, $3)', [escape(cedula),escape(placa),escape(dispo)])
   .then(function (data) {
     console.log('Conductor Desconectado');
     res.send(true);
@@ -76,7 +77,18 @@ app.delete('/Driver/Exit/:placa-:cedula', function (req,res) {
   })
 })
 
-//////////////////////////////////////
+app.post('/Driver/Dispo/:cedula-:dispo', function (req,res) {
+  const cedula = req.params.cedula;
+  const dispo = req.params.dispo;  
+
+  db.one('SELECT ChangeDispo($1, $2)', [escape(cedula), escape(dispo)])
+  .then(function (data) {    
+    console.log("Disponibilidad Conductor: ", data.changedispo);
+    res.send(data.changedispo);
+  })
+})
+
+//////////////////////////////////////////////////////////
 app.get('/Driver/Main/MiTaxi-Disp/:placa-:cedula', function (req,res) {
   const cedula = req.params.cedula;
   const placa = req.params.placa;  
@@ -88,7 +100,7 @@ app.get('/Driver/Main/MiTaxi-Disp/:placa-:cedula', function (req,res) {
   })
 })
 
-//////////////////////////////////////
+
 function createRelationConduce(cedula,placa){
   db.none('INSERT INTO conduce VALUES ($1, $2)', [escape(cedula),escape(placa)])
   .then(function (data) {    
