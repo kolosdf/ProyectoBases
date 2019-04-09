@@ -5,7 +5,7 @@ import MainCondu from '../components/CMainWait';
 import BottomMenu from '../components/BottomMenuBar';
 import { withRouter } from 'react-router-dom';
 
-class MainConduPage extends React.Component{
+class MainWaitPage extends React.Component{
     render(){
         return(
             <div className='main-containerBlack'>
