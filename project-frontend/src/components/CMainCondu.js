@@ -61,22 +61,33 @@ class MainCondu extends React.Component{
     }
 
     handleClickDispo(event){
-        const cedula = this.state.cedula;        
+        const cedula = this.state.cedula;
+        var dispo = this.state.dispo;
 
-        if(this.state.dispo === 'Ocupado'){
-            this.setState({imgB: ImgDispo});
-            this.setState({dispo: 'Disponible'});
-            
-            const dispo = 'Disponible';
-            this.changeDispo(cedula,dispo);
+        axios.get(`http://localhost:3500/Driver/Dispo/${cedula}`)
+            .then(res => {
+                const respuesta = res.data;
+                if(respuesta === 'Servicio'){
+                    this.setState({imgB: ImgService});
+                    this.setState({dispo: 'Servicio'});
+                    alert('No se puede modificar cuando se está en servicio')
 
-        }else{
-            this.setState({imgB: ImgNoService});
-            this.setState({dispo: 'Ocupado'});
-
-            const dispo = 'Ocupado';
-            this.changeDispo(cedula,dispo);
-        }        
+                }else if(this.state.dispo === 'Ocupado'){
+                    this.setState({imgB: ImgDispo});
+                    this.setState({dispo: 'Disponible'});
+                    
+                    dispo = 'Disponible';
+                    this.changeDispo(cedula,dispo);
+        
+                }else{
+                    this.setState({imgB: ImgNoService});
+                    this.setState({dispo: 'Ocupado'});
+                    
+                    dispo = 'Ocupado';
+                    this.changeDispo(cedula,dispo);
+                }
+            })
+            .catch( err => console.log('Error: ', err));                
     }
 
     handleClickExit(event){

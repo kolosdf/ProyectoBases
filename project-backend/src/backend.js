@@ -3,7 +3,17 @@ const cors = require('cors');
 const app = express();
 const port = 3500;
 const pgp = require('pg-promise')(/* options */);
-const db = pgp('postgres://postgres:1144211502@localhost:5434/NotEasyTaxi');
+const configDB = {
+  host: 'localhost',
+  port: '5434',
+  database: 'NotEasyTaxi',
+  user: 'postgres',
+  password: 'postgres',
+  poolSize: 25,
+  poolIdleTimeout: 8500,
+}
+//const db = pgp('postgres://postgres:1144211502@localhost:5434/NotEasyTaxi');
+const db = pgp(configDB);
 const { check, validationResult } = require('express-validator/check');
 
 app.use(cors());
@@ -123,6 +133,89 @@ app.post('/Driver/Dispo/:cedula-:dispo', function (req,res) {
     res.send(data.changedispo);
   })
 })
+
+//////////////////////////////////////////////////////////////
+////////// Consulta la disponibilidad del conductor //////////
+//////////////////////////////////////////////////////////////
+app.get('/Driver/Dispo/:cedula', function (req,res) {
+  const cedula = req.params.cedula;
+
+  db.one('SELECT disponibilidad FROM conductor WHERE cedula=$1', [escape(cedula)])
+  .then(function (data) {
+    console.log("Disponibilidad Conductor: ", data.disponibilidad);
+    res.send(data.disponibilidad);
+  })
+})
+
+//////////////////////////////////////////////////////////////
+///////////////// Busca petición de servicio /////////////////
+//////////////////////////////////////////////////////////////
+app.get('/Driver/lookforService/:cedula', function (req,res) {
+  const cedula = req.params.cedula;
+
+  db.one('SELECT lookforService($1)', [escape(cedula)])
+  .then(function (data) {
+    console.log("Servicio?: ", data.lookforservice);
+    res.send(data.lookforservice);
+  })
+})
+
+//////////////////////////////////////////////////////////////////
+///////////////// Pide la id del servicio actual /////////////////
+//////////////////////////////////////////////////////////////////
+app.get('/Driver/askServiceId/:cedula', function (req,res) {
+  const cedula = req.params.cedula;
+  const estado = 'pendiente'
+
+  db.one('SELECT ids FROM servicio WHERE cedula=$1 AND estado=$2', [escape(cedula), escape(estado)])
+  .then(function (data) {
+    console.log("Servicio: ", data.ids);
+    res.send(data.ids);
+  })
+})
+
+//////////////////////////////////////////////////////////////
+//////////////////// Empezar de servicio /////////////////////
+//////////////////////////////////////////////////////////////
+app.post('/Driver/startService/:cedula-:idServ', function (req,res) {
+  const cedula = req.params.cedula;
+  const idServ = req.params.idServ;
+
+  db.one('SELECT startService($1, $2)', [escape(cedula), escape(idServ)])
+  .then(function (data) {
+    console.log("Servicio inicio: ", data.startservice);
+    res.send(data.startservice);
+  })
+})
+
+//////////////////////////////////////////////////////////////
+//////////////////// Pedir terminar servicio /////////////////////
+//////////////////////////////////////////////////////////////
+app.post('/Driver/askEndService/:cedula-:idServ', function (req,res) {
+  const cedula = req.params.cedula;
+  const idServ = req.params.idServ;
+
+  db.one('SELECT askEndServiceC($1, $2)', [escape(cedula), escape(idServ)])
+  .then(function (data) {
+    console.log("Servicio pedir fin: ", data.askendservicec);
+    res.send(data.askendservicec);
+  })
+})
+
+//////////////////////////////////////////////////////////////
+//////////////////// Terminar servicio /////////////////////
+//////////////////////////////////////////////////////////////
+app.post('/Driver/endService/:cedula-:idServ', function (req,res) {
+  const cedula = req.params.cedula;
+  const idServ = req.params.idServ;
+
+  db.one('SELECT endServiceC($1, $2)', [escape(cedula), escape(idServ)])
+  .then(function (data) {
+    console.log("Servicio fin: ", data.endservicec);
+    res.send(data.endservicec);
+  })
+})
+
 
 //////////////////////////////////////////////////////
 ////////// Verifica disponibilidad del taxi //////////
@@ -287,6 +380,59 @@ app.get(`/User/:userCel-:userPass`, [
     res.send(false);
   })
 })
+
+//////////////////////////////////////////////////////////////
+//////////////////// Pedir de servicio /////////////////////
+//////////////////////////////////////////////////////////////
+app.post('/User/AskServiceU/:costoC-:kmRecorrido-:fechaIn-:horaIn-:inicioR-:finR-:cedula-:cel', function (req,res) {
+  const costoC = req.params.costoC;
+  const kmRecorrido = req.params.kmRecorrido;
+  const estado = 'pendiente';
+  const contador = '0';
+  const fechaIn = req.params.fechaIn;
+  const horaIn = req.params.horaIn;
+  const inicioR = req.params.inicioR;
+  const finR = req.params.finR;
+  const cedula = req.params.cedula;
+  const cel = req.params.cel;
+
+  db.one('SELECT AskServiceU($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [escape(costoC),escape(kmRecorrido),escape(estado),escape(contador),
+                                                                         escape(fechaIn),escape(horaIn),escape(inicioR),escape(finR),
+                                                                         escape(cedula),escape(cel)])
+  .then(function (data) {
+    console.log("Servicio pedido: ", data.askserviceu);
+    res.send(data.askserviceu);
+  })
+})
+
+//////////////////////////////////////////////////////////////
+//////////////////// Pedir terminar servicio /////////////////////
+//////////////////////////////////////////////////////////////
+app.post('/User/askEndService/:cel-:idServ', function (req,res) {
+  const cel = req.params.cel;
+  const idServ = req.params.idServ;
+
+  db.one('SELECT askEndServiceU($1, $2)', [escape(cel), escape(idServ)])
+  .then(function (data) {
+    console.log("Servicio pedir fin: ", data.askendserviceu);
+    res.send(data.askendserviceu);
+  })
+})
+
+//////////////////////////////////////////////////////////////
+//////////////////// Terminar servicio /////////////////////
+//////////////////////////////////////////////////////////////
+app.post('/User/endService/:cel-:idServ', function (req,res) {
+  const cel = req.params.cel;
+  const idServ = req.params.idServ;
+
+  db.one('SELECT endServiceU($1, $2)', [escape(cel), escape(idServ)])
+  .then(function (data) {
+    console.log("Servicio fin: ", data.endserviceu);
+    res.send(data.endserviceu);
+  })
+})
+
 
 //-----------------------------------------------------------------------------------------------------
 //------------------------------------------ OTHER ----------------------------------------------------

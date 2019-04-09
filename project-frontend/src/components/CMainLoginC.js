@@ -5,6 +5,7 @@ import axios from 'axios'
 import imagen from './../images/mainRightImg.png';
 import { isString } from 'util';
 import ImgConduTag from './../images/ConduTag.png';
+import CustomModal from './CustomModal';
 
 const style = {
     margin: '0.5em',
@@ -46,6 +47,7 @@ class MainLoginC extends React.Component{
             console.log(userValid);
             if(isString(userValid)){
                 alert('Valor invalido para la Cedula');
+                return <CustomModal headerT='Error' texto='Valor invalido para la Cedula'></CustomModal>;
             }else if(userValid){
                 this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula, placa:''}});
             }else{

@@ -5,7 +5,7 @@ import wait from '../components/CMainWait';
 import BottomMenu from '../components/BottomMenuBar';
 import { withRouter } from 'react-router-dom';
 
-class WaitPage extends React.Component{
+class AddPlacesPage extends React.Component{
     render(){
         return(
             <div className='main-containerBlack'>

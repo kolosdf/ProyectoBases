@@ -80,6 +80,66 @@ CREATE OR REPLACE FUNCTION ExitDriver (varchar(10),varchar(7),varchar(10)) RETUR
 	END
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION lookforService (varchar(10)) RETURNS boolean AS $$
+	DECLARE
+		conduCedula ALIAS FOR $1;	
+		
+	BEGIN
+		IF EXISTS (SELECT * FROM servicio WHERE cedula=conduCedula AND estado='pendiente')
+		THEN 
+			RETURN True;
+		END IF;
+		
+		RETURN False;
+		
+	END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION startService (varchar(10),varchar(8)) RETURNS boolean AS $$
+	DECLARE
+		conduCedula ALIAS FOR $1;
+		idSe ALIAS FOR $2;
+		
+	BEGIN
+		UPDATE public.servicio
+			SET estado='proceso'
+			WHERE cedula=conduCedula AND ids=idSe;
+		
+		RETURN true;
+		
+	END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION askEndServiceC (varchar(10),varchar(8)) RETURNS boolean AS $$
+	DECLARE
+		conduCedula ALIAS FOR $1;
+		idSe ALIAS FOR $2;
+		
+	BEGIN
+		UPDATE public.servicio
+			SET estado='solicitudFin'
+			WHERE cedula=conduCedula AND ids=idSe;
+		
+		RETURN true;
+		
+	END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION endServiceC (varchar(10),varchar(8)) RETURNS boolean AS $$
+	DECLARE
+		conduCedula ALIAS FOR $1;
+		idSe ALIAS FOR $2;
+		
+	BEGIN
+		UPDATE public.servicio
+			SET estado='terminado'
+			WHERE cedula=conduCedula AND ids=idSe;
+		
+		RETURN true;
+		
+	END
+$$ LANGUAGE plpgsql;
+
 --------------------------------------- TAXI --------------------------------------------
 -----------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION TaxiDisp (varchar(10),varchar(7)) RETURNS varchar AS $$
@@ -173,3 +233,33 @@ CREATE OR REPLACE FUNCTION ValidateUser (varchar(10),varchar(50)) RETURNS boolea
 		
 	END
 	$$ LANGUAGE plpgsql;
+	
+CREATE OR REPLACE FUNCTION askEndServiceU (varchar(10),varchar(8)) RETURNS boolean AS $$
+	DECLARE
+		numCelUs ALIAS FOR $1;
+		idSe ALIAS FOR $2;
+		
+	BEGIN
+		UPDATE public.servicio
+			SET estado='solicitudFin'
+			WHERE numCel=numCelUs AND ids=idSe;
+		
+		RETURN true;
+		
+	END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION endServiceU (varchar(10),varchar(8)) RETURNS boolean AS $$
+	DECLARE
+		numCelUs ALIAS FOR $1;
+		idSe ALIAS FOR $2;
+		
+	BEGIN
+		UPDATE public.servicio
+			SET estado='terminado'
+			WHERE numCel=numCelUs AND ids=idSe;
+		
+		RETURN true;
+		
+	END
+$$ LANGUAGE plpgsql;
