@@ -2,11 +2,11 @@ import React from 'react';
 import { Grid,Button, Icon,Form,Image, Label } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
 import BottomMenu from '../components/BottomMenuBar';
-import ImgServTag from './../images/enServicioTag.png';
+import ImgServTag from './../images/viajandoTag.png';
 import UpMenu from '../components/SMenuBar';
 import ImgLogo from './../images/logoYellow.png';
 import MainMapa from '../components/CMainMap';
-import taximetro from './../images/taximetroICON.png';
+
 
 const style = {
   margin: '0.5em',
@@ -25,9 +25,6 @@ class Mapp extends React.Component {
   render() {
     
     return (
-      <div className='main-containerBlack'>
-        <div className='main-container'>
-        <UpMenu />
 
         <Grid centered columns={2} relaxed='very' style={style}>
           <Grid.Row>
@@ -62,9 +59,7 @@ class Mapp extends React.Component {
       </Grid.Column>
 
       </Grid>
-      </div>
-      <BottomMenu />
-      </div>
+
     );
   }
 }
