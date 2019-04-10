@@ -263,3 +263,29 @@ CREATE OR REPLACE FUNCTION endServiceU (varchar(10),varchar(8)) RETURNS boolean 
 		
 	END
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION AskServiceU (integer,integer,varchar(20),varchar(6),date,varchar(5),float,float,float,float,varchar(10),varchar(10)) RETURNS boolean AS $$
+	DECLARE
+		SCostoC ALIAS FOR $1;
+		SKmRecorrido ALIAS FOR $2;
+		SEstado ALIAS FOR $3;
+		SContador ALIAS FOR $4;
+		SFechaIn ALIAS FOR $5;
+		SHoraIn ALIAS FOR $6;
+		SInicioRX ALIAS FOR $7;
+		SInicioRY ALIAS FOR $8;
+		SFinRX ALIAS FOR $9;
+		SFinRY ALIAS FOR $10;
+		SCedula ALIAS FOR $11;
+		SCel ALIAS FOR $12;
+
+		
+	BEGIN
+		INSERT INTO public.servicio(
+			costocarr, kmrecorrido, estado, contador, fechaini, horaini, iniciorutax, iniciorutay, finrutax, finrutay, cedula, numcel)
+			VALUES (SCostoC, SKmRecorrido, SEstado, SContador, SFechaIn, SHoraIn, SInicioRX, SInicioRY, SFinRX, SFinY, SCedula, SCel);
+		
+		RETURN true;
+		
+	END
+$$ LANGUAGE plpgsql;

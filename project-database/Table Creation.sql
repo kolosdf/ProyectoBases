@@ -49,7 +49,8 @@ CREATE TABLE Registro (
 	idR SERIAL,
 	fecha date NOT NULL,
 	hora varchar(10) NOT NULL,
-	coordenadas varchar(20) NOT NULL,
+	coordenadaX float NOT NULL,
+	coordenadaY float NOT NULL,
 	placa varchar(6) NOT NULL,
 
 	PRIMARY KEY (idR),
@@ -82,8 +83,10 @@ CREATE TABLE Servicio (
 	horaIni varchar(5) NOT NULL,
 	fechaFin date,
 	horaFin varchar(5),
-	inicioRuta varchar(20) NOT NULL,
-	finRuta varchar(20) NOT NULL,
+	inicioRutaX float NOT NULL,
+	inicioRutaY float NOT NULL,
+	finRutaX float NOT NULL,
+	finRutaY float NOT NULL,
 	cedula varchar(10) NOT NULL,
 	numCel varchar(10) NOT NULL,
 
@@ -93,17 +96,19 @@ CREATE TABLE Servicio (
 );
 
 CREATE TABLE Origenes (	
-	origen varchar(15) NOT NULL,
+	origenX float NOT NULL,
+	origenY float NOT NULL,
 	numCel varchar(10) NOT NULL,
 
-	PRIMARY KEY (origen),
+	PRIMARY KEY (origenX,origenY),
 	FOREIGN KEY (numCel) REFERENCES Usuario(numCel)
 );
 
 CREATE TABLE Destinos (
-	destino varchar(15) NOT NULL,
+	destinoX float NOT NULL,
+	destinoY float NOT NULL,
 	numCel varchar(10) NOT NULL,
 
-	PRIMARY KEY (destino),
+	PRIMARY KEY (destinoX,destinoY),
 	FOREIGN KEY (numCel) REFERENCES Usuario(numCel)
 );
