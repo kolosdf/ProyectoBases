@@ -9,6 +9,8 @@ let position;
 
 let zoomMap;
 
+var latitud = '';
+var longitud = '';
 
 class MappService extends React.Component {
 
@@ -29,6 +31,9 @@ addMarker = (e) =>{
 handleClick(e){
     this.setState({currentPos:e.latlng})
     console.log(this.state.currentPos);
+
+    latitud = e.lat;
+    longitud = e.lng;
 
   reverse
     .getReverse(this.state.currentPos.lat, this.state.currentPos.lng)
