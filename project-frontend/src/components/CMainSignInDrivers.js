@@ -161,7 +161,7 @@ class SignInDriver extends React.Component{
                     numeroC = 0;
                     banco = "none";
                 }
-
+                
                 axios.post(`http://localhost:3500/SignIn/Driver/${cedula}-${numCel}-${nombre}-${apellido}-${contra}-${diaNac}-${mesNac}-${anoNac}-${direccion}-${email}-${genero}-${modoPago}-${numeroC}-${banco}`)
                 .then(res => {
                     const mensaje = res.data;
@@ -169,6 +169,7 @@ class SignInDriver extends React.Component{
                     if(mensaje === '422'){
                         alert('Campos Invalidos')
                     }else if(mensaje === 'Usuario Creado'){
+                        alert(mensaje);
                         this.props.history.push({pathname:'/Driver'});
                     }else{
                         alert('La cedula ya está registrada');

@@ -1,7 +1,7 @@
 ------------------------------------ CONDUCTOR ------------------------------------------ 
 -----------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION AddDriver (varchar(10),varchar(10), varchar(30), varchar(30), varchar(10),
-								   	 varchar(50), date, varchar(50), varchar(100),varchar(10),varchar(8),varchar(10),varchar(20)) RETURNS varchar AS $$
+								   	 varchar(50), date, varchar(100), varchar(100),varchar(10),varchar(8),varchar(10),varchar(20)) RETURNS varchar AS $$
 	DECLARE
 		Ccedula ALIAS FOR $1;
 		CnumCel ALIAS FOR $2;
@@ -193,7 +193,7 @@ $$ LANGUAGE plpgsql;
 -----------------------------------------------------------------------------------------
 ------------------------------------- USUARIO -------------------------------------------
 -----------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION AddUser (varchar(10), varchar(30), varchar(30), varchar(20),
+CREATE OR REPLACE FUNCTION AddUser (varchar(10), varchar(30), varchar(30), varchar(100),
 								   	 varchar(50), varchar(10), date, varchar(10), varchar(10)) RETURNS varchar AS $$
 	DECLARE
 		UnumCel ALIAS FOR $1;
