@@ -244,6 +244,37 @@ function createRelationConduce(cedula,placa){
   })
 }
 
+////////////////////////////////////////////////////
+////////// Crear registro taxi ////////////////////
+////////////////////////////////////////////////////
+app.post(`/Driver/Main/MiTaxi/Map/:placa-:coordenadax-:coordenaday`, function (req,res) {
+  const placa = req.params.placa;
+
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  const yyyy = today.getFullYear();
+
+  const fechaHoy = yyyy + '-' + mm + '-' + dd;
+
+  const hours = String(today.getHours() + 1);
+  const minut = String(today.getMinutes() + 1);
+  const Hora = hours+":"+minut
+
+  const coordenadax = this.state.coordenadax;
+  const coordenaday = this.state.coordenaday;
+
+  db.one('INSERT INTO public.registro(fecha, hora, coordenadax, coordenaday, placa) VALUES ($1, $2, $3, $4, $5);', [escape(fechaHoy),escape(Hora),escape(coordenadax),escape(coordenaday), escape(placa)])
+  .then(function (data) {    
+    console.log(true);
+    res.send(true);    
+  })
+  .catch(function (error) {
+    console.log('Error', error)
+    res.send(null);
+  })
+})
+
 ///////////////////////////////////////
 ////////// Obtener Info Taxi //////////
   //placa: placa del taxi
