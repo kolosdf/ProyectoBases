@@ -48,6 +48,8 @@ class ConduMiTaxiAdd extends React.Component{
             this.state = {
                 cedula: this.props.location.state.cedula,
                 placaActual: this.props.location.state.placa,
+                coordenadaX: this.props.location.state.coordeadaX,
+                coordenadaY: this.props.location.state.coordeadaY,
                 placa: '',
                 marca: '',
                 modelo: '',
@@ -93,7 +95,7 @@ class ConduMiTaxiAdd extends React.Component{
     handleChangeSoat(event){ this.setState({soat: event.target.value}); }
 
     handleClickAtras(event){
-        this.props.history.push({pathname:'/Driver/Main/MiTaxi', state:{cedula:this.state.cedula, placa:this.state.placaActual}});
+        this.props.history.push({pathname:'/Driver/Main/MiTaxi', state:{cedula:this.state.cedula, placa:this.state.placaActual, coordenadaX:this.state.coordenadaX, coordenadaY:this.state.coordenadaY}});
     }
 
     handleClick(){

@@ -384,21 +384,23 @@ app.get(`/User/:userCel-:userPass`, [
 //////////////////////////////////////////////////////////////
 //////////////////// Pedir de servicio /////////////////////
 //////////////////////////////////////////////////////////////
-app.post('/User/AskServiceU/:costoC-:kmRecorrido-:fechaIn-:horaIn-:inicioR-:finR-:cedula-:cel', function (req,res) {
+app.post('/User/AskServiceU/:costoC-:kmRecorrido-:fechaIn-:horaIn-:inicioRX-:inicioRY-:finRX-:finRY-:cedula-:cel', function (req,res) {
   const costoC = req.params.costoC;
   const kmRecorrido = req.params.kmRecorrido;
   const estado = 'pendiente';
   const contador = '0';
   const fechaIn = req.params.fechaIn;
   const horaIn = req.params.horaIn;
-  const inicioR = req.params.inicioR;
-  const finR = req.params.finR;
+  const inicioRX = req.params.inicioRX;
+  const inicioRY = req.params.inicioRY;
+  const finRX = req.params.finR;
+  const finRY = req.params.finR;
   const cedula = req.params.cedula;
   const cel = req.params.cel;
 
   db.one('SELECT AskServiceU($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [escape(costoC),escape(kmRecorrido),escape(estado),escape(contador),
-                                                                         escape(fechaIn),escape(horaIn),escape(inicioR),escape(finR),
-                                                                         escape(cedula),escape(cel)])
+                                                                         escape(fechaIn),escape(horaIn),escape(inicioRX),escape(inicioRY)
+                                                                         ,escape(finRX),escape(finRY),escape(cedula),escape(cel)])
   .then(function (data) {
     console.log("Servicio pedido: ", data.askserviceu);
     res.send(data.askserviceu);
@@ -438,6 +440,3 @@ app.post('/User/endService/:cel-:idServ', function (req,res) {
 //------------------------------------------ OTHER ----------------------------------------------------
 //-----------------------------------------------------------------------------------------------------
 app.listen(port, () => console.log(`App listening on port ${port}!`))
-
-
-

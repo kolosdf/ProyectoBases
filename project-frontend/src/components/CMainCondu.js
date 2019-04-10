@@ -34,6 +34,8 @@ class MainCondu extends React.Component{
                 placa: this.props.location.state.placa,
                 imgB: ImgNoService,
                 dispo: 'Ocupado',
+                coordenadaX: this.props.location.state.coordeadaX,
+                coordenadaY: this.props.location.state.coordeadaY,
             };
         }catch(err){
             this.props.history.push({pathname:'/'});
@@ -41,6 +43,8 @@ class MainCondu extends React.Component{
                 cedula: '',
                 placa: '',
                 dispo: 'Ocupado',
+                coordenadaX: '',
+                coordenadaY: '',
             };
         }
 
@@ -50,7 +54,7 @@ class MainCondu extends React.Component{
     }
 
     handleClickMiTaxi(event){
-        this.props.history.push({pathname:'/Driver/Main/MiTaxi', state:{cedula:this.state.cedula, placa:this.state.placa}});
+        this.props.history.push({pathname:'/Driver/Main/MiTaxi', state:{cedula:this.state.cedula, placa:this.state.placa, coordenadaX:this.state.coordenadaX, coordenadaY:this.state.coordenadaY}});
     }
 
     changeDispo(cedula,dispo){

@@ -47,9 +47,9 @@ class MainLoginC extends React.Component{
             console.log(userValid);
             if(isString(userValid)){
                 alert('Valor invalido para la Cedula');
-                return <CustomModal headerT='Error' texto='Valor invalido para la Cedula'></CustomModal>;
+//                return <CustomModal headerT='Error' texto='Valor invalido para la Cedula'></CustomModal>;
             }else if(userValid){
-                this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula, placa:''}});
+                this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula, placa:'',coordenadaX:'',coordenadaY:''}});
             }else{
                 alert('Datos Incorrectos');
             }

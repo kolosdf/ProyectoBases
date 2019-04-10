@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import ImgConduTag from './../images/ConduTag.png';
 import ImgLogo from './../images/logoYellow.png';
 import ImgAddTaxi from './../images/AddB.png';
+import ImgMap from './../images/MapB.png';
 import ImgAtras from './../images/AtrasICON.png';
 import axios from 'axios';
 import { isNullOrUndefined } from 'util';
@@ -30,6 +31,8 @@ class ConduMiTaxi extends React.Component{
             this.state = {
                 cedula: this.props.location.state.cedula,
                 placa: this.props.location.state.placa,
+                coordenadaX: this.props.location.state.coordeadaX,
+                coordenadaY: this.props.location.state.coordeadaY,
                 marca: '',
                 modelo: '',
                 ano: '',
@@ -41,6 +44,8 @@ class ConduMiTaxi extends React.Component{
             this.state = {
                 cedula: '',
                 placa: '',
+                coordenadaX: '',
+                coordenadaY: '',
                 marca: '',
                 modelo: '',
                 ano: '',
@@ -54,6 +59,7 @@ class ConduMiTaxi extends React.Component{
         this.handleClick = this.handleClick.bind(this);
         this.handleClickAtras = this.handleClickAtras.bind(this);
         this.handleClickAdd = this.handleClickAdd.bind(this);
+        this.handleClickMap = this.handleClickMap.bind(this);
 
         if(!(this.state.placa === '')){
             this.fillInputs();
@@ -63,7 +69,11 @@ class ConduMiTaxi extends React.Component{
     handleChangePlaca(event){ this.setState({placa: event.target.value}); } 
     
     handleClickAtras(event){
-        this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula, placa:this.state.placa}});
+        this.props.history.push({pathname:'/Driver/Main', state:{cedula:this.state.cedula, placa:this.state.placa, coordenadaX:this.state.coordenadaX, coordenadaY:this.state.coordenadaY}});
+    }
+
+    handleClickMap(event){
+        this.props.history.push({pathname:'/Driver/Main/MiTaxi/Map', state:{cedula:this.state.cedula, placa:this.state.placa, coordenadaX:this.state.coordenadaX, coordenadaY:this.state.coordenadaY}});
     }
 
     fillInputs(){
@@ -134,7 +144,7 @@ class ConduMiTaxi extends React.Component{
     }
 
     handleClickAdd(){
-        this.props.history.push({pathname:'/Driver/Main/MiTaxi/AddTaxi', state:{cedula:this.state.cedula, placa:this.state.placa}});
+        this.props.history.push({pathname:'/Driver/Main/MiTaxi/AddTaxi', state:{cedula:this.state.cedula, placa:this.state.placa, coordenadaX:this.state.coordenadaX, coordenadaY:this.state.coordenadaY}});
     }
 
     render(){
@@ -177,6 +187,12 @@ class ConduMiTaxi extends React.Component{
                     <Grid.Row>
                         <Button compact style={styleButton} onClick={this.handleClickAdd}>
                             <Image src={ImgAddTaxi} />
+                        </Button>
+                    </Grid.Row>
+
+                    <Grid.Row>
+                        <Button compact style={styleButton} onClick={this.handleClickMap}>
+                            <Image src={ImgMap} />
                         </Button>
                     </Grid.Row>
 
