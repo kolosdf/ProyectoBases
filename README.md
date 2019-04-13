@@ -10,6 +10,55 @@
 * [React](https://reactjs.org/)
 * [Node](https://nodejs.org/es/)
 
+## Instalacion de NodeJS
+
+### Actualizacion de la base de datos de paquetes
+```
+sudo apt-get update
+```
+### Instalando node y nodeJs
+
+```
+ sudo apt-get install node
+ sudo apt-get install nodejs
+ ```
+#### Verificando la instalaciòn
+
+```
+nodejs -v
+nodejs
+```
+## Instalando NPM
+
+```
+sudo apt-get install npm
+```
+## Postgres
+
+### Instalando Postgres
+```
+sudo apt-get install postgresql
+```
+### Instalacion de PostGis
+
+Debido a que en este proyecto se manejan mapas a traves de los cuales obtenemos informacion se hace necesaria la instalacion de la extension PostGis
+
+#### Añadiendo los paquetes de postGis
+```
+sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+sudo apt update
+```
+#### Instalando PostGis
+
+```
+sudo apt install postgis postgresql-9.6-postgis-2.3
+
+sudo -u postgres psql -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" gisdata
+```
+## La app
+
+Empezaremos por clonar o descargar el repositorio
+
 ## Instalaciòn de Docker
 
 ### En caso de tener una version vieja de docker procedemos a desinstalarlo
