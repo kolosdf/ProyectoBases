@@ -48,7 +48,7 @@ Para comprobar que se esta ejecutando usamos
 ```
 sudo systemctl status docker
 ```
-En donde en caso de estar ejecutandose veremos --> Active: active(running)
+En donde en caso de estar ejecutandose veremos ``` Active: active(running)```
 (para terminar el proceso de este comando usamos Ctrl+c)
 
 ## Instalando Docker CE
