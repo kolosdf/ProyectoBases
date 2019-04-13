@@ -48,10 +48,8 @@ Para comprobar que se esta ejecutando usamos
 ```
 sudo systemctl status docker
 ```
-En donde en caso de estar ejecutandose veremos:
-...
-Active: active(running)
-...
+En donde en caso de estar ejecutandose veremos --> Active: active(running)
+(para terminar el proceso de este comando usamos Ctrl+c)
 
 ## Instalando Docker CE
 ```
@@ -62,3 +60,25 @@ udo apt-get install docker-ce
 ```
 sudo docker run hello-world`
 ```
+## Instalando docker-compose
+
+#### Usamos este comando para descargar la version actual de Docker compose
+
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+#### Aplicando permisos
+```
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+#### Verificando la instalacion
+```
+docker-compose --version
+```
+
+### Usando docker-compose
+
+Al momento de utilizar docker-compose debemos asegurarnos de encontrarnos en la carpeta del proyecto, en este caso "ProyectoBases", ademàs de tener el archivo ```docker-compose.yml``` o ```docker-compose.yaml ```
+
+
