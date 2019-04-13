@@ -42,5 +42,6 @@ sudo apt-get update
 udo apt-get install docker-ce
 ```
 #### En caso de querer verificar que Docker CE esta instalado
-``sudo docker run hello-world`
+```
+sudo docker run hello-world`
 ```
