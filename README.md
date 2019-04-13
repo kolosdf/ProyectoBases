@@ -2,13 +2,13 @@
 
 ##Tecnologias usadas
 
-*[Leaflet](https://leafletjs.com/)
-*[UI Semantic React](https://react.semantic-ui.com/)
-*[Docker](https://www.docker.com/)
-*[Postgres](https://www.postgresql.org/)
-*[Axios](https://github.com/axios/axios)
-*[React](https://reactjs.org/)
-*[Node](https://nodejs.org/es/)
+* [Leaflet](https://leafletjs.com/)
+* [UI Semantic React](https://react.semantic-ui.com/)
+* [Docker](https://www.docker.com/)
+* [Postgres](https://www.postgresql.org/)
+* [Axios](https://github.com/axios/axios)
+* [React](https://reactjs.org/)
+* [Node](https://nodejs.org/es/)
 
 ## Instalaciòn de Docker
 
