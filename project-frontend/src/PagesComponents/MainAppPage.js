@@ -5,7 +5,7 @@ import MainApp from '../components/CMainAppP';
 import BottomMenu from '../components/BottomMenuBar';
 import { withRouter } from 'react-router-dom';
 
-class LoginUserPage extends React.Component{
+class MainAppPage extends React.Component{
     render(){
         return(
             <div className='main-containerBlack'>
@@ -20,4 +20,4 @@ class LoginUserPage extends React.Component{
     }
 }
 
-export default withRouter(LoginUserPage)
+export default withRouter(MainAppPage)

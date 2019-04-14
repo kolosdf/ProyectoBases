@@ -14,7 +14,7 @@ const style = {
     backgroundColor: '#FFCC00'
 };
 
-class MainCondu extends React.Component{
+class MWait extends React.Component{
     constructor(props){
         super(props);
 
@@ -41,4 +41,4 @@ class MainCondu extends React.Component{
     }
 }
 
-export default withRouter(MainCondu);
+export default withRouter(MWait);

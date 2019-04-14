@@ -23,62 +23,53 @@ const styleButton = {
 
 class MapService extends React.Component {
 
-  render() {
-    
+  render() {    
     return (
       <div className='main-containerBlack'>
         <div className='main-container'>
-        <UpMenu />
+          <UpMenu />
 
-        <Grid centered columns={2} relaxed='very' style={style}>
-          <Grid.Row>
+          <Grid centered columns={2} relaxed='very' style={style}>
+            <Grid.Row>
+              <Grid.Column floated='left'>
+                <Image src={ImgLogo} />
+              </Grid.Column>
 
-          <Grid.Column floated='left'>
-                        <Image src={ImgLogo} />
-                    </Grid.Column>
-
-          <Grid.Column floated='right'>
-                        <Image src={ImgMapTag} />
-                    </Grid.Column>
-
+              <Grid.Column floated='right'>
+                <Image src={ImgMapTag} />
+              </Grid.Column>
             </Grid.Row>
 
-      <Grid.Column stretched floated='right'>
-        <Grid.Row>
-           <Label style={{fontSize: '40px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Conductor' > 
-           </Label>
-         </Grid.Row>
-        <Grid.Row>  
-            <Label style={{fontSize: '30px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Nombre:' > 
-             </Label> 
-             </Grid.Row>
-        
-        <Grid.Row>  
-            <Label style={{fontSize: '30px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Placa:' > 
-             </Label> 
-             </Grid.Row>
+            <Grid.Column stretched floated='right'>
+              <Grid.Row>
+                <Label style={{fontSize: '40px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Conductor' /> 
+              </Grid.Row>
 
-        <Grid.Row>  
-            <Label style={{fontSize: '20px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Distancia' > 
-             </Label> 
-             </Grid.Row>
+              <Grid.Row>  
+                <Label style={{fontSize: '30px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Nombre:' /> 
+              </Grid.Row>
+              
+              <Grid.Row>  
+                <Label style={{fontSize: '30px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Placa:' /> 
+              </Grid.Row>
 
-        <Grid.Row>
-          <Button style={styleButton}>
-          <Image src={pagarTaxi}/>
-          </Button>
-        </Grid.Row>
-      </Grid.Column>
+              <Grid.Row>  
+                <Label style={{fontSize: '20px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Distancia' /> 
+              </Grid.Row>
 
-      <Grid.Column floated='left'>
+              <Grid.Row>
+                <Button style={styleButton}>
+                  <Image src={pagarTaxi}/>
+                </Button>
+              </Grid.Row>
+            </Grid.Column>
 
-        <MappService/>
-
-      </Grid.Column>
-
-      </Grid>
-      </div>
-      <BottomMenu />
+            <Grid.Column floated='left'>
+              <MappService/>
+            </Grid.Column>
+          </Grid>
+        </div>
+        <BottomMenu />
       </div>
     );
   }

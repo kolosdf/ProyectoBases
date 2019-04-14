@@ -1,7 +1,7 @@
 import React from 'react';
 import './Up&BottomMenu.css';
 import UpMenu from '../components/SMenuBar';
-import servPage from '../components/CConduServPage';
+import Mapp from '../components/CConduServPage';
 import BottomMenu from '../components/BottomMenuBar';
 import { withRouter } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ class InService extends React.Component{
                 <div className='main-container'>
                     <UpMenu />
 
-                    <servPage />
+                    <Mapp />
                 </div>
                 <BottomMenu />
             </div>
