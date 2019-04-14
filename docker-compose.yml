@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  database:
+    container_name: docker_database
+    build: ./project-database
+    ports:
+      - 5434:5434
+  backend:
+    container_name: docker_backend
+    build: ./project-backend
+    ports:
+      - 5000:5000
+  frontend:
+    container_name: docker_frontend
+    build: ./project-frontend
+    ports:
+      - 3000:3000
