@@ -55,11 +55,10 @@ sudo apt install postgis postgresql-9.6-postgis-2.3
 
 sudo -u postgres psql -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" gisdata
 ```
-## La app
-
-Empezaremos por clonar o descargar el repositorio
 
 ## Instalaciòn de Docker
+
+Cabe aclarar que esta parte se encuentra en desarrollo, por lo que puede presentar ciertos inconvenientes
 
 ### En caso de tener una version vieja de docker procedemos a desinstalarlo
 ```
@@ -129,5 +128,21 @@ docker-compose --version
 ### Usando docker-compose
 
 Al momento de utilizar docker-compose debemos asegurarnos de encontrarnos en la carpeta del proyecto, en este caso "ProyectoBases", ademàs de tener el archivo ```docker-compose.yml``` o ```docker-compose.yaml ```
+ 
+Usamos el siguiente codigo:
 
+```
+docker-compose build
+docker-compose up
+```
 
+## La app
+
+Empezaremos por clonar o descargar el repositorio, una vez esto utilizamos la terminal del sistema para llegar a la ubicacion de la carpeta "ProyectoBases", una vez ahi, accedemos a la carpeta del backEnd ```project-backend/src``` y ejecutamos el comando 
+```
+node backend.js
+```
+Una vez esto accedemos a la carpeta del frontEnd ```/project-frontend``` y ejecutamos el comando
+```
+npm start
+```
