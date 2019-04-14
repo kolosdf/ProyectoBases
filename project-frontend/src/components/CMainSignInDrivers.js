@@ -30,7 +30,6 @@ const opcionesGenero = [
     { key: 'f', text: 'Femenino', value: 'Femenino' },
 ]
 
-
 function getMonthFromString(mon){
     var d = Date.parse(mon + "1, 2012");
     if(!isNaN(d)){
@@ -94,9 +93,11 @@ class SignInDriver extends React.Component{
     }
 
     handleChangeEmail(event){ this.setState({email: event.target.value}); }
+
     handleChangeGenero(event, { name, value }){
         this.setState({genero: value});
     }
+
     handleChangeNumC(event){ this.setState({numeroC: event.target.value}); }
     handleChangeBanco(event){ this.setState({banco: event.target.value}); }
 
@@ -108,7 +109,6 @@ class SignInDriver extends React.Component{
             alert('Contraseña invalida, la contraseña debe se de minimo 5 digitos')
         }else{
             var str1 = "Campos Vacios:\n";
-            var str2 = "";
             
             var cedula = this.state.cedula;
             if(cedula === ""){ str1 = str1+"Cedula\n";}
@@ -133,12 +133,12 @@ class SignInDriver extends React.Component{
             var genero = this.state.genero;
             if(genero === ""){ str1 = str1+"Genero\n";}
             var numeroC = this.state.numeroC;
-            if(numeroC === ""){ str2 = str1+"Numero Cuenta\n";}
+            if(numeroC === ""){ str1 = str1+"Numero Cuenta\n";}
             var banco = this.state.banco;
-            if(banco === ""){ str2 = str2+"Banco\n";}
+            if(banco === ""){ str1 = str1+"Banco\n";}
 
             if((cedula === "") || (numCel === "") || (nombre === "") || (apellido === "") || (contra === "") ||
-            (diaNac === "") || (email === "") || (genero === "")){
+            (diaNac === "") || (email === "") || (genero === "") || (numeroC === "") || (banco === "")){
                 alert(str1);
             }else{
                 axios.post(`http://localhost:3500/SignIn/Driver/${cedula}-${numCel}-${nombre}-${apellido}-${contra}-${diaNac}-${mesNac}-${anoNac}-${email}-${genero}-${numeroC}-${banco}`)
@@ -178,6 +178,7 @@ class SignInDriver extends React.Component{
                     <Grid.Column floated='left'>
                         <Image src={ImgConduTag} />
                     </Grid.Column>
+                    
                     <Grid.Column floated='right'>
                         <Image src={ImgLogo} />
                     </Grid.Column>
@@ -217,6 +218,7 @@ class SignInDriver extends React.Component{
                         </Form.Group>                        
                     </Form>    
                 </Grid.Column>
+                
                 <Grid.Column>
                     <Grid.Row>
                         <Button compact style={styleButton} onClick={this.handleClick} >

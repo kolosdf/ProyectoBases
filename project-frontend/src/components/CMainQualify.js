@@ -19,14 +19,13 @@ const styleButton = {
 };
 
 //Combobox con puntos de origen del usuario
-const options = ['No selected' , 'poner lugares del usuario']
+const options = ['No seleccionado' , 'Poner lugares del usuario']
 const defaultOption = options[0]
 
 class MainQualify extends React.Component{
     constructor(){
         super();
-
- }
+    }
 
     render(){
         return(
@@ -35,30 +34,25 @@ class MainQualify extends React.Component{
                     <Grid.Column floated='right'>
                         <Image src={ImgBack} />
                     </Grid.Column>
+
                     <Grid.Column floated='left'>
                         <Image src={QTag} />
                     </Grid.Column>
                 </Grid.Row>
 
                 <Grid.Row>
-
                     <Rating size='massive' maxRating={5} clearable />
+                </Grid.Row>
 
-                    </Grid.Row>
                <Grid.Row>
+                    <Button compact style={styleButton}>
+                        <Image src={ImgAceptar} />                            
+                    </Button>
 
-               <Button compact style={styleButton}>
-                                <Image src={ImgAceptar} />                            
-                            </Button>
-                  
-
-               <Button compact style={styleButton}>
-                                <Image src={ImgCancelar} />                            
-                            </Button>
-
-
-                   </Grid.Row>
-
+                    <Button compact style={styleButton}>
+                        <Image src={ImgCancelar} />                            
+                    </Button>
+                </Grid.Row>
             </Grid>
         );
     }

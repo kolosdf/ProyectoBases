@@ -22,52 +22,45 @@ const styleButton = {
 
 class Mapp extends React.Component {
 
-  render() {
-    
-    return (
+  render() {    
+    return (      
       <div className='main-containerBlack'>
         <div className='main-container'>
-        <UpMenu />
+          <UpMenu />
 
-        <Grid centered columns={2} relaxed='very' style={style}>
-          <Grid.Row>
+          <Grid centered columns={2} relaxed='very' style={style}>
+            <Grid.Row>
+              <Grid.Column floated='left'>
+                <Image src={ImgLogo} />
+              </Grid.Column>
 
-          <Grid.Column floated='left'>
-                        <Image src={ImgLogo} />
-                    </Grid.Column>
-
-          <Grid.Column floated='right'>
-                        <Image src={ImgServTag} />
-                    </Grid.Column>
-
+              <Grid.Column floated='right'>
+                <Image src={ImgServTag} />
+              </Grid.Column>
             </Grid.Row>
 
-      <Grid.Column stretched floated='right'>
-        <Grid.Row>
-           <Label style={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Destino' > 
-           </Label>
-         </Grid.Row>
+            <Grid.Column stretched floated='right'>
+              <Grid.Row>
+                <Label style={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Destino' > 
+                </Label>
+              </Grid.Row>
 
-        <Grid.Row>
-        <Button compact style={styleButton} onClick={this.handleClickDispo}>
-                            <Image src={taximetro} />                            
-                        </Button>
-            </Grid.Row>
-        
-      </Grid.Column>
+              <Grid.Row>
+                <Button compact style={styleButton} onClick={this.handleClickDispo}>
+                  <Image src={taximetro} />                            
+                </Button>
+              </Grid.Row>            
+            </Grid.Column>
 
-      <Grid.Column floated='right'>
-
-        <MainMapa/>
-
-      </Grid.Column>
-
-      </Grid>
-      </div>
-      <BottomMenu />
+            <Grid.Column floated='right'>
+              <MainMapa/>
+            </Grid.Column>
+          </Grid>
+        </div>
+        <BottomMenu />
       </div>
     );
   }
 }
 
-export default Mapp
+export default withRouter(Mapp)

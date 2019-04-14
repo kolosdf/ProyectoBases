@@ -6,7 +6,6 @@ import ImgLogo from './../images/logoYellow.png';
 import ImgAtras from './../images/AtrasICON.png';
 import axios from 'axios';
 
-
 const style = {
     margin: '0.5em',
     paddingLeft: 0,    
@@ -38,7 +37,6 @@ const opcionesBaul = [
     { key: 'M', text: 'Mediano', value: 'Mediano' },
     { key: 'G', text: 'Grande', value: 'Grande' },
 ]
-
 
 class ConduMiTaxiAdd extends React.Component{
     constructor(props){
@@ -92,6 +90,7 @@ class ConduMiTaxiAdd extends React.Component{
     handleChangeBaul(event, { name, value }){
         this.setState({baul: value});
     }
+    
     handleChangeSoat(event){ this.setState({soat: event.target.value}); }
 
     handleClickAtras(event){

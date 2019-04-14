@@ -23,7 +23,6 @@ const styleButton = {
     backgroundColor: '#FFCC00'
 };
 
-
 class MainCondu extends React.Component{
     constructor(props){
         super(props);

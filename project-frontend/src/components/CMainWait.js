@@ -14,12 +14,6 @@ const style = {
     backgroundColor: '#FFCC00'
 };
 
-const styleButton = {
-    color: '#FFFFFF',
-    backgroundColor: '#FFCC00'
-};
-
-
 class MainCondu extends React.Component{
     constructor(props){
         super(props);
@@ -29,22 +23,19 @@ class MainCondu extends React.Component{
     render(){
         return(
             <Grid centered columns={2}  relaxed='very' style={style}>
-                 <Grid.Row>
+                <Grid.Row>
+                    <Grid.Column floated='left'>
+                        <Image src={ImgLogo} />
+                    </Grid.Column>
 
-            <Grid.Column floated='left'>
-              <Image src={ImgLogo} />
-            </Grid.Column>
+                    <Grid.Column floated='right'>
+                        <Image src={ImgTag} />
+                    </Grid.Column>
+                </Grid.Row>
 
-            <Grid.Column floated='right'>
-              <Image src={ImgTag} />
-            </Grid.Column>
-
-        
-         </Grid.Row>
-        <Grid.Row>
-         <Image src={ImgWait}>
-             </Image>
-             </Grid.Row>
+                <Grid.Row>
+                    <Image src={ImgWait} />
+                </Grid.Row>
             </Grid>
         );
     }

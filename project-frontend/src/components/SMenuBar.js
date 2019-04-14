@@ -22,7 +22,7 @@ export default class UpMenu extends Component {
     return (
       <Menu widths={3} borderless style={style}>        
         <Menu.Item>
-        <Image src={image} />
+         <Image src={image} />
         </Menu.Item>
 
         <Modal
@@ -37,8 +37,7 @@ export default class UpMenu extends Component {
          trigger={<Menu.Item name='ayuda' onClick={this.handleOpen}> Ayuda </Menu.Item>}
          open={this.state.modalAOpen}
          onClose={this.handleClose}
-         basic
-        >
+         basic>
           <Modal.Header>Ayuda</Modal.Header>
           <Modal.Content>            
             <Modal.Description> 
