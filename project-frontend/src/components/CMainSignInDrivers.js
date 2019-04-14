@@ -30,10 +30,6 @@ const opcionesGenero = [
     { key: 'f', text: 'Femenino', value: 'Femenino' },
 ]
 
-const opcionesModoPago = [
-    { key: 'e', text: 'Efectivo', value: 'Efectivo' },
-    { key: 'd', text: 'Debito', value: 'Debito' },
-]
 
 function getMonthFromString(mon){
     var d = Date.parse(mon + "1, 2012");
@@ -56,10 +52,8 @@ class SignInDriver extends React.Component{
             diaNac: '',
             mesNac: '',
             anoNac: '',
-            direccion: '',
             email: '',
             genero: '',
-            modoPago: '',            
             numeroC: '',
             banco: '',
         };
@@ -70,10 +64,8 @@ class SignInDriver extends React.Component{
         this.handleChangeApellido = this.handleChangeApellido.bind(this);
         this.handleChangeContra = this.handleChangeContra.bind(this);
         this.handleChangeFechaNac = this.handleChangeFechaNac.bind(this);
-        this.handleChangeDir = this.handleChangeDir.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangeGenero = this.handleChangeGenero.bind(this);
-        this.handleChangeModoP = this.handleChangeModoP.bind(this);
         this.handleChangeNumC = this.handleChangeNumC.bind(this);
         this.handleChangeBanco = this.handleChangeBanco.bind(this);
         this.handleClick = this.handleClick.bind(this)
@@ -101,13 +93,9 @@ class SignInDriver extends React.Component{
         }
     }
 
-    handleChangeDir(event){ this.setState({direccion: event.target.value}); }
     handleChangeEmail(event){ this.setState({email: event.target.value}); }
     handleChangeGenero(event, { name, value }){
         this.setState({genero: value});
-    }
-    handleChangeModoP(event, { name, value }){
-        this.setState({modoPago: value});       
     }
     handleChangeNumC(event){ this.setState({numeroC: event.target.value}); }
     handleChangeBanco(event){ this.setState({banco: event.target.value}); }
@@ -144,25 +132,16 @@ class SignInDriver extends React.Component{
             if(email === ""){ str1 = str1+"Email\n";}
             var genero = this.state.genero;
             if(genero === ""){ str1 = str1+"Genero\n";}
-            var modoPago = this.state.modoPago;
-            if(modoPago === ""){ str1 = str1+"Modo Pago\n";}
             var numeroC = this.state.numeroC;
             if(numeroC === ""){ str2 = str1+"Numero Cuenta\n";}
             var banco = this.state.banco;
             if(banco === ""){ str2 = str2+"Banco\n";}
 
             if((cedula === "") || (numCel === "") || (nombre === "") || (apellido === "") || (contra === "") ||
-            (diaNac === "") || (direccion === "") || (email === "") || (genero === "") || (modoPago === "")){
+            (diaNac === "") || (email === "") || (genero === "")){
                 alert(str1);
-            }else if((modoPago === "Debito") && ((numeroC === "") || (banco === ""))){
-                alert(str2)
             }else{
-                if(modoPago === "Efectivo"){
-                    numeroC = 0;
-                    banco = "none";
-                }
-                
-                axios.post(`http://localhost:3500/SignIn/Driver/${cedula}-${numCel}-${nombre}-${apellido}-${contra}-${diaNac}-${mesNac}-${anoNac}-${direccion}-${email}-${genero}-${modoPago}-${numeroC}-${banco}`)
+                axios.post(`http://localhost:3500/SignIn/Driver/${cedula}-${numCel}-${nombre}-${apellido}-${contra}-${diaNac}-${mesNac}-${anoNac}-${email}-${genero}-${numeroC}-${banco}`)
                 .then(res => {
                     const mensaje = res.data;
                     console.log(mensaje);
@@ -188,10 +167,8 @@ class SignInDriver extends React.Component{
         const apellido = this.state.apellido;        
         const contra = this.state.contra;
         const fechaNac = this.state.fechaNac;
-        const direccion = this.state.direccion;
         const email = this.state.email;
         const genero = this.state.genero;
-        const modoPago = this.state.modoPago;
         const numeroC = this.state.numeroC;
         const banco = this.state.banco;
 
@@ -226,15 +203,11 @@ class SignInDriver extends React.Component{
                         <SemanticDatepicker label='Fecha Nacimiento' icon='calendar alternate' locale={ptLocale}
                             value={fechaNac} onDateChange={this.handleChangeFechaNac} required/>
 
-                        <Form.Input icon='home' iconPosition='left' label='Dirección' placeholder='Dirección'
-                            value={direccion} onChange={this.handleChangeDir} required/>
                         <Form.Input icon='mail' iconPosition='left' label='Email' placeholder='Email'
                             value={email} onChange={this.handleChangeEmail} required/>
 
                         <Form.Select fluid label='Genero' options={opcionesGenero} placeholder='Genero' 
                             name='genero' value={genero} onChange={this.handleChangeGenero} required/>
-                        <Form.Select fluid label='Modo Pago' options={opcionesModoPago} placeholder='Modo Pago' 
-                            name='modoP' value={modoPago} onChange={this.handleChangeModoP} required/>
 
                         <Form.Group>
                             <Form.Input icon='payment' iconPosition='left' label='Número Tarjeta' placeholder='Número Tarjeta'

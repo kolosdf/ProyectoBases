@@ -37,9 +37,10 @@ class Mapp extends React.Component {
 
   handleClick(e){
       this.setState({currentPos:e.latlng})
-      console.log(this.state.currentPos);
+      console.log(this.state.currentPos.lat);
 
       this.setState({latitud: e.lat})
+      console.log(e.latlng.lng)
       this.setState({longitud: e.lng})
 
     reverse
@@ -68,7 +69,7 @@ class Mapp extends React.Component {
     zoomMap = zoom;
     
     return (
-      <Map center = {position} zoom = {zoomMap} onclick = {this.handleClick} onSelect = {this.mandarPos} >               
+      <Map center = {position} zoom = {zoomMap} onclick = {this.handleClick} onSelect = {this.mandarPos} style = {{height:'500px', width:'500px'}}>               
         <TileLayer attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />

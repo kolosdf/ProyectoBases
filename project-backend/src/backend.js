@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
 ///////////////////////////////////////
 ////////// Agregar Conductor //////////
 ///////////////////////////////////////
-app.post('/SignIn/Driver/:cedula-:numCel-:nombre-:apellido-:contra-:diaNac-:mesNac-:anoNac-:direccion-:email-:genero-:modoPago-:numeroC-:banco', [
+app.post('/SignIn/Driver/:cedula-:numCel-:nombre-:apellido-:contra-:diaNac-:mesNac-:anoNac-:email-:genero-:numeroC-:banco', [
   check('cedula').isNumeric().isLength({min:5, max:15}),
   check('numCel').isNumeric().isLength({min:10, max:10}),
   check('nombre').isAlpha(),
@@ -55,17 +55,15 @@ app.post('/SignIn/Driver/:cedula-:numCel-:nombre-:apellido-:contra-:diaNac-:mesN
   const mesNac = req.params.mesNac;
   const anoNac = req.params.anoNac;
   const fechaNac = anoNac+"-"+mesNac+"-"+diaNac;
-  const direccion = req.params.direccion;
   const email = req.params.email;
   const genero = req.params.genero;
-  const modoPago = req.params.modoPago;
   const numeroC = req.params.numeroC;
   const banco = req.params.banco;
   
-  db.one('SELECT AddDriver($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
+  db.one('SELECT AddDriver($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
                                      [escape(cedula), escape(numCel), escape(nombre), escape(apellido), escape(disponibilidad),
-                                      escape(contra), escape(fechaNac), escape(direccion), escape(email),
-                                      escape(genero), escape(modoPago), escape(numeroC), escape(banco)])
+                                      escape(contra), escape(fechaNac), escape(email), escape(genero),
+                                      escape(numeroC), escape(banco)])
   .then(function (data) {
     console.log(data.adddriver);
     res.send(data.adddriver);
