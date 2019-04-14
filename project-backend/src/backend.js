@@ -28,6 +28,18 @@ app.get('/', function (req, res) {
 //----------------------------------------------------------------------------------------------------------------
 ///////////////////////////////////////
 ////////// Agregar Conductor //////////
+  //:cedula -> cedula del conductor
+  //:numCel -> numero de celular del conductor
+  //:nombre -> nombre del conductor
+  //:apellido -> apellido del conductor
+  //:contra -> contraseña del conductor
+  //:diaNac -> dia de nacimiento del conductor
+  //:mesNac -> mes de nacimiento del conductor
+  //:anoNac -> año de nacimiento del conductor
+  //:email -> correo electronico del conductor
+  //:genero -> genero del conductor
+  //:numeroC -> numero de cuenta bancaria del conductor
+  //:banco -> banco donde el conductor tiene su cuenta
 ///////////////////////////////////////
 app.post('/SignIn/Driver/:cedula-:numCel-:nombre-:apellido-:contra-:diaNac-:mesNac-:anoNac-:email-:genero-:numeroC-:banco', [
   check('cedula').isNumeric().isLength({min:5, max:15}),
@@ -75,6 +87,8 @@ app.post('/SignIn/Driver/:cedula-:numCel-:nombre-:apellido-:contra-:diaNac-:mesN
 
 ///////////////////////////////////////////////
 ////////// Validar Conductor (LOGIN) //////////
+  //:conduCedula -> cedula del conductor
+  //:conduPass -> contraseña del conductor
 ///////////////////////////////////////////////
 app.get(`/Driver/:conduCedula-:conduPass`, [
   check(`conduCedula`).isNumeric().isLength({min:5, max:15}),  
@@ -101,6 +115,9 @@ app.get(`/Driver/:conduCedula-:conduPass`, [
 
 ////////////////////////////////////////////////////
 ////////// Cierra la sesion del conductor //////////
+  //:placa -> placa del taxi que esta manejando el conductor
+  //:cedula -> cedula del conductor
+  //:dispo -> nueva disponibilad del conductor (ocupado)
 ////////////////////////////////////////////////////
 app.delete('/Driver/Exit/:placa-:cedula-:dispo', function (req,res) {
   const cedula = req.params.cedula;
@@ -120,6 +137,8 @@ app.delete('/Driver/Exit/:placa-:cedula-:dispo', function (req,res) {
 
 ////////////////////////////////////////////////////////////
 ////////// Cambia la disponibilidad del conductor //////////
+ //:cedula -> cedula del conductor
+ //:dispo -> nueva disponibilad del conductor
 ////////////////////////////////////////////////////////////
 app.post('/Driver/Dispo/:cedula-:dispo', function (req,res) {
   const cedula = req.params.cedula;
@@ -134,6 +153,7 @@ app.post('/Driver/Dispo/:cedula-:dispo', function (req,res) {
 
 //////////////////////////////////////////////////////////////
 ////////// Consulta la disponibilidad del conductor //////////
+ //:cedula -> cedula del conductor
 //////////////////////////////////////////////////////////////
 app.get('/Driver/Dispo/:cedula', function (req,res) {
   const cedula = req.params.cedula;
@@ -147,6 +167,7 @@ app.get('/Driver/Dispo/:cedula', function (req,res) {
 
 //////////////////////////////////////////////////////////////
 ///////////////// Busca petición de servicio /////////////////
+ //:cedula -> cedula del conductor
 //////////////////////////////////////////////////////////////
 app.get('/Driver/lookforService/:cedula', function (req,res) {
   const cedula = req.params.cedula;
@@ -160,6 +181,7 @@ app.get('/Driver/lookforService/:cedula', function (req,res) {
 
 //////////////////////////////////////////////////////////////////
 ///////////////// Pide la id del servicio actual /////////////////
+ //:cedula -> cedula del conductor
 //////////////////////////////////////////////////////////////////
 app.get('/Driver/askServiceId/:cedula', function (req,res) {
   const cedula = req.params.cedula;
@@ -174,6 +196,8 @@ app.get('/Driver/askServiceId/:cedula', function (req,res) {
 
 //////////////////////////////////////////////////////////////
 //////////////////// Empezar de servicio /////////////////////
+ //:cedula -> cedula del conductor
+ //:idServ -> identificador del servicio que se va a prestar
 //////////////////////////////////////////////////////////////
 app.post('/Driver/startService/:cedula-:idServ', function (req,res) {
   const cedula = req.params.cedula;
@@ -187,7 +211,9 @@ app.post('/Driver/startService/:cedula-:idServ', function (req,res) {
 })
 
 //////////////////////////////////////////////////////////////
-//////////////////// Pedir terminar servicio /////////////////////
+//////////////////// Pedir terminar servicio /////////////////
+ //:cedula -> cedula del conductor
+ //:idServ -> identificador del servicio que se esta prestando
 //////////////////////////////////////////////////////////////
 app.post('/Driver/askEndService/:cedula-:idServ', function (req,res) {
   const cedula = req.params.cedula;
@@ -201,7 +227,9 @@ app.post('/Driver/askEndService/:cedula-:idServ', function (req,res) {
 })
 
 //////////////////////////////////////////////////////////////
-//////////////////// Terminar servicio /////////////////////
+//////////////////// Terminar servicio ///////////////////////
+ //:cedula -> cedula del conductor
+ //:idServ -> identificador del servicio que se esta prestando
 //////////////////////////////////////////////////////////////
 app.post('/Driver/endService/:cedula-:idServ', function (req,res) {
   const cedula = req.params.cedula;
@@ -217,6 +245,8 @@ app.post('/Driver/endService/:cedula-:idServ', function (req,res) {
 
 //////////////////////////////////////////////////////
 ////////// Verifica disponibilidad del taxi //////////
+  //:placa -> placa del taxi que esta manejando el conductor
+  //:cedula -> cedula del conductor
 //////////////////////////////////////////////////////
 app.get(`/Driver/Main/MiTaxi-Disp/:placa-:cedula`, function (req,res) {
   const cedula = req.params.cedula;
@@ -231,6 +261,8 @@ app.get(`/Driver/Main/MiTaxi-Disp/:placa-:cedula`, function (req,res) {
 
 ////////////////////////////////////////////////////
 ////////// Le asigna el taxi al conductor //////////
+  //cedula: cedula del conductor
+  //placa: placa del taxi que esta manejando el conductor  
 ////////////////////////////////////////////////////
 function createRelationConduce(cedula,placa){
   db.none('INSERT INTO conduce VALUES ($1, $2)', [escape(cedula),escape(placa)])
@@ -243,7 +275,10 @@ function createRelationConduce(cedula,placa){
 }
 
 ////////////////////////////////////////////////////
-////////// Crear registro taxi ////////////////////
+///////////// Crear registro taxi //////////////////
+ //:placa -> placa del taxi que se esta utilizando
+ //:coordenadax -> coordenada x del taxi
+ //:coordenaday -> coordenada y del taxi
 ////////////////////////////////////////////////////
 app.post(`/Driver/Main/MiTaxi/Map/:placa-:coordenadax-:coordenaday`, function (req,res) {
   const placa = req.params.placa;
@@ -275,9 +310,9 @@ app.post(`/Driver/Main/MiTaxi/Map/:placa-:coordenadax-:coordenaday`, function (r
 
 ///////////////////////////////////////
 ////////// Obtener Info Taxi //////////
-  //placa: placa del taxi
-  //cedula: cedula del conductor
-  //assign: True para indicar que se asigna al conductor el taxi. False para pedir la informacion solamente
+  //:placa -> placa del taxi
+  //:cedula -> cedula del conductor
+  //:assign -> True para indicar que se asigna al conductor el taxi. False para pedir la informacion solamente
 ///////////////////////////////////////
 app.get(`/Driver/Main/MiTaxi/:placa-:cedula-:assign`, function (req,res) {
   const cedula = req.params.cedula;
@@ -309,6 +344,12 @@ app.get(`/Driver/Main/MiTaxi/:placa-:cedula-:assign`, function (req,res) {
 
 //////////////////////////////////
 ////////// Agregar Taxi //////////
+  //placa -> placa del taxi
+  //marca -> marca del taxi
+  //modelo -> modelo del taxi
+  //ano -> año del taxi
+  //baul -> tamaño del baul del taxi
+  //soat -> soat del taxi
 //////////////////////////////////
 app.post('/Driver/Main/MiTaxi/AddTaxi/:placa-:marca-:modelo-:ano-:baul-:soat', [
   check('placa').isAlphanumeric().isLength({min:6, max:7}),
@@ -344,7 +385,18 @@ app.post('/Driver/Main/MiTaxi/AddTaxi/:placa-:marca-:modelo-:ano-:baul-:soat', [
 //------------------------------------------ USUARIO QUERYS ----------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------
 /////////////////////////////////////
-////////// Agregar Usuario ////////// 
+////////// Agregar Usuario //////////
+  //:numCel -> numero de celular del usuario
+  //:nombre -> nombre del usuario
+  //:apellido -> apellido del usuario
+  //:dirResid -> direccion de residencia del usuario
+  //:contra -> contraseña del usuario
+  //:tipoT -> tipo de tarjeta del usuario
+  //:diaVencT -> dia de vencimiento de la tarjeta del usuario
+  //:mesVencT -> mes de vencimiento de la tarjeta del usuario
+  //:anoVencT -> año de vencimiento de la tarjeta del usuario
+  //:numeroT -> numero de tarjeta del usuario
+  //:NumSegT -> numero de seguridad de la tarjeta dle usuario
 /////////////////////////////////////
 app.post(`/SignIn/User/:numCel-:nombre-:apellido-:dirResid-:contra-:tipoT-:diaVencT-:mesVencT-:anoVencT-:numeroT-:NumSegT`, [
   check('numCel').isNumeric().isLength({min:10, max:10}),
@@ -387,6 +439,8 @@ app.post(`/SignIn/User/:numCel-:nombre-:apellido-:dirResid-:contra-:tipoT-:diaVe
 
 //////////////////////////////////////////////
 ////////// Validar Usuario (LOGIN) //////////
+ //:usarCel -> numero de celular del usuario
+ //:userPass -> contraseña del usuario
 /////////////////////////////////////////////
 app.get(`/User/:userCel-:userPass`, [
   check(`userCel`).isNumeric().isLength({min:10, max:10}),
@@ -411,7 +465,17 @@ app.get(`/User/:userCel-:userPass`, [
 })
 
 //////////////////////////////////////////////////////////////
-//////////////////// Pedir de servicio /////////////////////
+//////////////////// Pedir de servicio ///////////////////////
+ //:costoC -> costo del servicio
+ //:kmRecorrido -> kilometros totales del recorrido del servicio
+ //:fechaIn -> fecha de inicio del servicio
+ //:horaIn -> hora de inicio del servicio
+ //:inicioRX -> coordenada x del punto de inicio del servicio
+ //:inicioRY -> coordenada y del punto de inicio del servicio
+ //:finRX -> coordenada x del punto de finalización del servicio
+ //:finRY -> coordenada y del punto de finalización del servicio
+ //:cedula -> cedula del conductor que esta prestando el servicio
+ //:cel -> numero de celular del usuario que solicito el servicio
 //////////////////////////////////////////////////////////////
 app.post('/User/AskServiceU/:costoC-:kmRecorrido-:fechaIn-:horaIn-:inicioRX-:inicioRY-:finRX-:finRY-:cedula-:cel', function (req,res) {
   const costoC = req.params.costoC;
@@ -437,7 +501,9 @@ app.post('/User/AskServiceU/:costoC-:kmRecorrido-:fechaIn-:horaIn-:inicioRX-:ini
 })
 
 //////////////////////////////////////////////////////////////
-//////////////////// Pedir terminar servicio /////////////////////
+//////////////////// Pedir terminar servicio /////////////////
+ //:cel -> numero de celular del usuario
+ //:idServ -> identificador del servicio que se esta prestando
 //////////////////////////////////////////////////////////////
 app.post('/User/askEndService/:cel-:idServ', function (req,res) {
   const cel = req.params.cel;
@@ -451,7 +517,9 @@ app.post('/User/askEndService/:cel-:idServ', function (req,res) {
 })
 
 //////////////////////////////////////////////////////////////
-//////////////////// Terminar servicio /////////////////////
+//////////////////// Terminar servicio ///////////////////////
+ //:cel -> numero de celular del usuario
+ //:idServ -> identificador del servicio que se esta prestando
 //////////////////////////////////////////////////////////////
 app.post('/User/endService/:cel-:idServ', function (req,res) {
   const cel = req.params.cel;

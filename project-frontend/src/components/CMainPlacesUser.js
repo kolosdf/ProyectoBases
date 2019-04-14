@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid,Button,Image, Label } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
-import ImgPlaces from './../images/MisLugaresICON.png';
+//import ImgPlaces from './../images/MisLugaresICON.png';
 import ImgAdd from './../images/addd.png';
 import ImgTaxi from './../images/PedirTaxiICON.png';
 import PLacesTag from './../images/lugaresTag.png';
@@ -55,34 +55,27 @@ class MainUser extends React.Component{
 
                 <Grid.Column stretched floated='left'>                 
                    <Grid.Row>
-                    <Label style ={{fontSize: '25px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content = 'Desde '>
-                        </Label>
-
-                    <Dropdown  style={{fontSize:'10px'}} options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />    
+                        <Label style ={{fontSize: '25px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content = 'Desde ' />
+                        <Dropdown  style={{fontSize:'10px'}} options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
                     </Grid.Row>
 
                     <Grid.Row>
-                    <Label style ={{fontSize: '25px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content = 'Hasta  '>
-                        </Label>
-
-                    <Dropdown  style ={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />    
+                        <Label style ={{fontSize: '25px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content = 'Hasta  ' />
+                        <Dropdown  style ={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
                     </Grid.Row>
+                </Grid.Column>
 
-                   </Grid.Column>
-                    <Grid.Column stretched floated='right' centered>
-                        <Grid.Row>
-                            <Button compact style={styleButton}>
-                                <Image src={ImgAdd} />                            
-                            </Button>
+                <Grid.Column stretched floated='right' centered>
+                    <Grid.Row>
+                        <Button compact style={styleButton}>
+                            <Image src={ImgAdd} />                            
+                        </Button>
 
                         <Button compact style={styleButton}>
-                                <Image src={ImgTaxi} />                            
-                            </Button>
-
-                        </Grid.Row>                    
-                                      
-                    </Grid.Column>
-               
+                            <Image src={ImgTaxi} />                            
+                        </Button>
+                    </Grid.Row>
+                </Grid.Column>               
             </Grid>
         );
     }

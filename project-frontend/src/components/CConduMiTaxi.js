@@ -114,7 +114,6 @@ class ConduMiTaxi extends React.Component{
                 const respuesta = res.data;
 
                 if(respuesta === 'True'){
-                    /////////////////////////////////////////////////////////////////////////
                     axios.get(`http://localhost:3500/Driver/Main/MiTaxi/${placa}-${cedula}-${assing}`)
                     .then(res => {
                         const respuesta = res.data;
@@ -133,11 +132,9 @@ class ConduMiTaxi extends React.Component{
                         }
                     })
                     .catch( err => console.log('Error: ', err))
-                    //////////////////////////////////////////////////////////////////////////
                 }else{
                     alert(respuesta);
                 }
-
             })
             .catch( err => console.log('Error: ', err))            
         }        

@@ -20,7 +20,6 @@ const styleButton = {
     backgroundColor: '#FFCC00'
 };
 
-
 class MainUser extends React.Component{
     constructor(props){
         super(props);
@@ -66,7 +65,8 @@ class MainUser extends React.Component{
                             <Button compact style={styleButton}>
                                 <Image src={ImgPlaces} />                            
                             </Button>
-                        </Grid.Row>                    
+                        </Grid.Row>
+                        
                         <Grid.Row>
                             <Button compact style={styleButton}>
                                 <Image src={ImgPreferencies} />                            

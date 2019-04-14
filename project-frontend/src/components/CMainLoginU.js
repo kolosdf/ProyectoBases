@@ -13,7 +13,6 @@ const style = {
     backgroundColor: '#FFCC00'
   };
 
-
 class MainLoginU extends React.Component{
     constructor(props){
         super(props);
@@ -51,7 +50,6 @@ class MainLoginU extends React.Component{
             }else{
                 alert('Datos Incorrectos');
             }
-
         })
         .catch( err => console.log('Error: ', err))
     }

@@ -35,7 +35,6 @@ export default class BottomMenu extends React.Component{
 
         return(
             <Grid relaxed='very' style={style}>
-
                 <Grid.Column floated='right' width={5}>
                     <List selection>
                         <Modal
@@ -102,7 +101,6 @@ export default class BottomMenu extends React.Component{
                     </List>
                 </Grid.Column>
 
-
                 <Grid.Column floated='right' width={5}>
                     <List>
                         <List.Item>
@@ -123,14 +121,10 @@ export default class BottomMenu extends React.Component{
                     </List>
                 </Grid.Column>
 
-
                 <Grid.Column floated='right' width={5}>
                     <Image src={image} />
                 </Grid.Column>
             </Grid>
-
         );
     }
-
-
 }

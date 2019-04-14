@@ -36,12 +36,12 @@ class Mapp extends React.Component {
   }
 
   handleClick(e){
-      this.setState({currentPos:e.latlng})
-      console.log(this.state.currentPos.lat);
+    this.setState({currentPos:e.latlng})
+    console.log(this.state.currentPos.lat);
 
-      this.setState({latitud: e.lat})
-      console.log(e.latlng.lng)
-      this.setState({longitud: e.lng})
+    this.setState({latitud: e.lat})
+    console.log(e.latlng.lng)
+    this.setState({longitud: e.lng})
 
     reverse
       .getReverse(this.state.currentPos.lat, this.state.currentPos.lng)
@@ -55,7 +55,6 @@ class Mapp extends React.Component {
       this.addMarker(e);
   }
     
-
   mandarPos() {
     this.props.callback({
       lat: this.state.currentPos.lat,
@@ -73,6 +72,7 @@ class Mapp extends React.Component {
         <TileLayer attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        
         {this.state.markers.map((position,idx) =>            
           <Marker draggable key={'marker-${idx}'} position = {position} latlng>
             <Popup> <span>{this.state.addres}</span> </Popup>

@@ -28,47 +28,42 @@ class Mapp extends React.Component {
     return (
       <div className='main-containerBlack'>
         <div className='main-container'>
-        <UpMenu />
+          <UpMenu />
 
-        <Grid centered columns={2} relaxed='very' style={style}>
-          <Grid.Row>
+          <Grid centered columns={2} relaxed='very' style={style}>
+            <Grid.Row>
+              <Grid.Column floated='left'>
+                <Image src={ImgLogo} />
+              </Grid.Column>
 
-          <Grid.Column floated='left'>
-                        <Image src={ImgLogo} />
-                    </Grid.Column>
-
-          <Grid.Column floated='right'>
-                        <Image src={ImgMapTag} />
-                    </Grid.Column>
-
+              <Grid.Column floated='right'>
+                <Image src={ImgMapTag} />
+              </Grid.Column>
             </Grid.Row>
 
-      <Grid.Column stretched floated='right'>
-        <Grid.Row>
-           <Label style={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Origen' > 
-           </Label>
-         </Grid.Row>
-        <Grid.Row>  
-            <Label style={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} }content='Destino' > 
-             </Label> 
-             </Grid.Row>
+            <Grid.Column stretched floated='right'>
+              <Grid.Row>
+                <Label style={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } content='Origen' /> 
+              </Grid.Row>
 
-        <Grid.Row>
-          <Button style={styleButton}>
-          <Image src={pedirTaxi}/>
-          </Button>
-        </Grid.Row>
-      </Grid.Column>
+              <Grid.Row>  
+                <Label style={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} }content='Destino' /> 
+              </Grid.Row>
 
-      <Grid.Column floated='left'>
+              <Grid.Row>
+                <Button style={styleButton}>
+                  <Image src={pedirTaxi}/>
+                </Button>
+              </Grid.Row>
+            </Grid.Column>
 
-        <MainMapa/>
-
-      </Grid.Column>
-
-      </Grid>
-      </div>
-      <BottomMenu />
+            <Grid.Column floated='left'>
+              <MainMapa/>
+            </Grid.Column>
+          </Grid>
+        </div>
+        
+        <BottomMenu />
       </div>
     );
   }

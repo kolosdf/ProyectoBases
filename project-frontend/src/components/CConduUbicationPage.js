@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import ImgMapaTag from './../images/MapaTag.png';
 //import UpMenu from '../components/SMenuBar';
 import ImgBack from './../images/back.png';
-import MainMapa from '../components/CMainMap';
+//import MainMapa from '../components/CMainMap';
 import { Map, TileLayer, Marker, Popup} from 'react-leaflet';
 import axios from 'axios'
 
@@ -14,7 +14,6 @@ const reverse = new Geo.ReverseGeocoder();
 
 let position;
 let zoomMap;
-
 
 const style = {
   margin: '0.5em',
@@ -33,36 +32,36 @@ class ConduUbicationPage extends React.Component {
     super(props);
 
     try{
-        this.state = {
-            cedula: this.props.location.state.cedula,
-            placa: this.props.location.state.placa,
-            coordenadaX: this.props.location.state.coordeadaX,
-            coordenadaY: this.props.location.state.coordeadaY,
-            lat: 3.42158,
-            lng: -76.5205,
-            zoom: 18,
-            currentPos:'',
-            addres:'',
-            markers: [],
-            latitud: '',
-            longitud: '',
-        };
+      this.state = {
+        cedula: this.props.location.state.cedula,
+        placa: this.props.location.state.placa,
+        coordenadaX: this.props.location.state.coordeadaX,
+        coordenadaY: this.props.location.state.coordeadaY,
+        lat: 3.42158,
+        lng: -76.5205,
+        zoom: 18,
+        currentPos:'',
+        addres:'',
+        markers: [],
+        latitud: '',
+        longitud: '',
+      };
     }catch(err){
-        this.props.history.push({pathname:'/'});
-        this.state = {
-            cedula: '',
-            placa: '',
-            coordenadaX: '',
-            coordenadaY: '',
-            lat: 3.42158,
-            lng: -76.5205,
-            zoom: 18,
-            currentPos:'',
-            addres:'',
-            markers: [],
-            latitud: '',
-            longitud: '',
-        };
+      this.props.history.push({pathname:'/'});
+      this.state = {
+          cedula: '',
+          placa: '',
+          coordenadaX: '',
+          coordenadaY: '',
+          lat: 3.42158,
+          lng: -76.5205,
+          zoom: 18,
+          currentPos:'',
+          addres:'',
+          markers: [],
+          latitud: '',
+          longitud: '',
+      };
     }
 
     this.mandarPos = this.mandarPos.bind(this);
@@ -80,12 +79,10 @@ class ConduUbicationPage extends React.Component {
       .then(res => {
           const respuesta = res.data;
           console.log(respuesta);
-            
       })
       .catch( err => console.log('Error: ', err))
     }
    
-
     this.props.history.push({pathname:'/Driver/Main/MiTaxi', state:{cedula:this.state.cedula, placa:this.state.placa, coordenadaX:this.state.coordenadaX, coordenadaY:this.state.coordenadaY}});
   }
 
@@ -119,7 +116,6 @@ class ConduUbicationPage extends React.Component {
       this.addMarker(e);
   }
     
-
   mandarPos() {
     this.props.callback({
       lat: this.state.currentPos.lat,
@@ -135,43 +131,36 @@ class ConduUbicationPage extends React.Component {
     return (
       <Grid centered columns={2} relaxed='very' style={style}>
         <Grid.Row>
-
           <Grid.Column floated='left'>
             <Button compact onClick={this.handleClickAtras} style={styleButton}>
               <Image src={ImgBack} />
             </Button>
+          </Grid.Column>
+
+          <Grid.Column floated='right'>
+            <Image src={ImgMapaTag} />
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Column stretched floated='right'>
+          <Grid.Row floated='centered'>
+            <Button content='Seleccionar Ubicacion'  style={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } onClick={this.handleClick}/>
+          </Grid.Row>        
         </Grid.Column>
 
         <Grid.Column floated='right'>
-          <Image src={ImgMapaTag} />
+          <Map center = {position} zoom = {zoomMap} onclick = {this.handleClick} onSelect = {this.mandarPos} >               
+            <TileLayer attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {this.state.markers.map((position,idx) =>            
+              <Marker draggable key={'marker-${idx}'} position = {position} latlng>
+                <Popup> <span>{this.state.addres}</span> </Popup>
+              </Marker>
+            )}
+          </Map>
         </Grid.Column>
-
-        </Grid.Row>
-
-      <Grid.Column stretched floated='right'>
-        <Grid.Row floated='centered'>
-        <Button content='Seleccionar Ubicacion'  style={{fontSize: '35px',  color: '#FFFFFF', backgroundColor: '#FFCC00'} } onClick={this.handleClick}/>
-         </Grid.Row>
-        
-      </Grid.Column>
-
-      <Grid.Column floated='right'>
-
-        <Map center = {position} zoom = {zoomMap} onclick = {this.handleClick} onSelect = {this.mandarPos} >               
-          <TileLayer attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {this.state.markers.map((position,idx) =>            
-            <Marker draggable key={'marker-${idx}'} position = {position} latlng>
-              <Popup> <span>{this.state.addres}</span> </Popup>
-            </Marker>
-          )}
-        </Map>
-
-      </Grid.Column>
-
       </Grid>
-
     );
   }
 }

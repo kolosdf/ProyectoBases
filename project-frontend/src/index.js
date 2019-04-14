@@ -1,12 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-//import Clock from './components/textClock.js';
-//import MainLoginU from './components/CMainLoginU';
-//import LoginUserPage from './PagesComponents/LoginUserPage';
 import MainAppPage from './PagesComponents/MainAppPage';
-//import MainApp from './components/CMainAppP';
-//import MainLoginU from './components/CMainLoginU';
 import { Switch, BrowserRouter, Route} from 'react-router-dom';
 import LoginUserPage from './PagesComponents/LoginUserPage';
 import LoginConduPage from './PagesComponents/LoginConduPage';
@@ -17,7 +12,6 @@ import SignInConduPage from './PagesComponents/SignInDriverPage';
 import ConduMiTaxiPage from './PagesComponents/ConduMiTaxiPage';
 import ConduMiTaxiAddPage from './PagesComponents/ConduMiTaxiAddPage';
 import ConduUbication from './PagesComponents/ConduUbication';
-import CMainMap from './components/CMainMap';
 
 class Login extends React.Component {  
   render() {      
@@ -43,7 +37,6 @@ class Login extends React.Component {
       );
     }
   }
-
 
 // ========================================
 ReactDOM.render(

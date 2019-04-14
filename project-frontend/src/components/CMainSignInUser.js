@@ -38,7 +38,6 @@ const opcionesTipoT = [
     { key: 'm', text: 'Mastercard', value: 'Mastercard' },
 ]
 
-
 class SignInUser extends React.Component{
     constructor(props){
         super(props);
@@ -148,7 +147,6 @@ class SignInUser extends React.Component{
                     }else{
                         alert('El numero de celular ya está registrado');
                     }
-
                 })
                 .catch( err => console.log('Error: ', err))
             }
@@ -206,8 +204,9 @@ class SignInUser extends React.Component{
                             <Form.Input icon='credit card outline' iconPosition='left' label='Numero de Seguridad Tarjeta' type = "password" placeholder='Numero de seguridad'
                                 value={numSeguridadT} onChange={this.handleChangeNumeroSegT} required/>  
                         </Form.Group>                        
-                    </Form>    
+                    </Form>                
                 </Grid.Column>
+                
                 <Grid.Column>
                     <Grid.Row>
                         <Button compact style={styleButton} onClick={this.handleClick} >

@@ -1,5 +1,8 @@
 ------------------------------------ CONDUCTOR ------------------------------------------ 
 -----------------------------------------------------------------------------------------
+-- Función que agrega un conductor (Es utilizada en registro de conductor)
+-- Si el conductor ya existe se retorna un Mensaje que indica que ya existe, en caso contrario, se agrega y
+--se le indica al conductor que fue creado
 CREATE OR REPLACE FUNCTION AddDriver (varchar(10),varchar(10), varchar(50), varchar(50), varchar(10),
 								   	 varchar(50), date, varchar(100),varchar(10),varchar(10),varchar(20)) RETURNS varchar AS $$
 	DECLARE
@@ -29,6 +32,8 @@ CREATE OR REPLACE FUNCTION AddDriver (varchar(10),varchar(10), varchar(50), varc
 	END
 $$ LANGUAGE plpgsql;
 
+-- Función de validación del conductor (usada en login), revisa si existe algun registro en la relacion Conductor con
+--la cedula (conduCedula) y contraseña (conduPass) dados, retorna True si el usuario existe, False lo contrario
 CREATE OR REPLACE FUNCTION ValidateDriver (varchar(10),varchar(50)) RETURNS boolean AS $$
 	DECLARE
 		conduCedula ALIAS FOR $1;
@@ -45,6 +50,7 @@ CREATE OR REPLACE FUNCTION ValidateDriver (varchar(10),varchar(50)) RETURNS bool
 	END
 $$ LANGUAGE plpgsql;
 
+-- Funcion que cambia la disponibilidad del conductor con cedula "conduCedula" y le da el valor de "Cdispo"
 CREATE OR REPLACE FUNCTION ChangeDispo (varchar(10),varchar(10)) RETURNS boolean AS $$
 	DECLARE
 		conduCedula ALIAS FOR $1;
@@ -64,6 +70,9 @@ CREATE OR REPLACE FUNCTION ChangeDispo (varchar(10),varchar(10)) RETURNS boolean
 	END
 $$ LANGUAGE plpgsql;
 
+-- Función encargada de realizar la desconección del conductor
+-- Elimina el registro en la relación conduce que tiene al conductor (conduCedula) con el taxi con placa "placaT"
+-- Cambia la disponibilidad del conductor a ocupado
 CREATE OR REPLACE FUNCTION ExitDriver (varchar(10),varchar(7),varchar(10)) RETURNS boolean AS $$
 	DECLARE
 		conduCedula ALIAS FOR $1;
@@ -81,6 +90,8 @@ CREATE OR REPLACE FUNCTION ExitDriver (varchar(10),varchar(7),varchar(10)) RETUR
 	END
 $$ LANGUAGE plpgsql;
 
+-- Funcion que se encarga de revisar si el conductor con cedula "conduCedula" tiene que prestar un servicio
+-- Actualmente esta función no esta siendo utilizada
 CREATE OR REPLACE FUNCTION lookforService (varchar(10)) RETURNS boolean AS $$
 	DECLARE
 		conduCedula ALIAS FOR $1;	
@@ -96,6 +107,8 @@ CREATE OR REPLACE FUNCTION lookforService (varchar(10)) RETURNS boolean AS $$
 	END
 $$ LANGUAGE plpgsql;
 
+-- Funcion que se encarga de cambiar el estado de un servicio a "proceso" que indica que el servicio esta en proceso
+-- Actualmente esta función no esta siendo utilizada
 CREATE OR REPLACE FUNCTION startService (varchar(10),varchar(8)) RETURNS boolean AS $$
 	DECLARE
 		conduCedula ALIAS FOR $1;
@@ -111,6 +124,10 @@ CREATE OR REPLACE FUNCTION startService (varchar(10),varchar(8)) RETURNS boolean
 	END
 $$ LANGUAGE plpgsql;
 
+-- Funcion que se encarga de solicitar la terminacion un servicio indicando la "solicitudFin" del conductor
+-- Actualmente esta función no esta siendo utilizada
+-- La función no es necesaria con el modelo de "siempre se presta un servicio", puesto que al terminarse el servicio se dio por dado y 
+--no necesita el concentimiento de la otra parte
 CREATE OR REPLACE FUNCTION askEndServiceC (varchar(10),varchar(8)) RETURNS boolean AS $$
 	DECLARE
 		conduCedula ALIAS FOR $1;
@@ -126,6 +143,8 @@ CREATE OR REPLACE FUNCTION askEndServiceC (varchar(10),varchar(8)) RETURNS boole
 	END
 $$ LANGUAGE plpgsql;
 
+-- Funcion que se encarga de terminar un servicio por parte del conductor
+-- Actualmente esta función no esta siendo utilizada
 CREATE OR REPLACE FUNCTION endServiceC (varchar(10),varchar(8)) RETURNS boolean AS $$
 	DECLARE
 		conduCedula ALIAS FOR $1;
@@ -141,8 +160,11 @@ CREATE OR REPLACE FUNCTION endServiceC (varchar(10),varchar(8)) RETURNS boolean 
 	END
 $$ LANGUAGE plpgsql;
 
+-----------------------------------------------------------------------------------------
 --------------------------------------- TAXI --------------------------------------------
 -----------------------------------------------------------------------------------------
+-- Función que se encarga de revisar si un taxi se encuentra disponible para su uso, en caso de que el taxi,
+--no este registrado, este ocupado o este disponible se le informa al sistema para continuar con el proceso de seleccion de taxi
 CREATE OR REPLACE FUNCTION TaxiDisp (varchar(10),varchar(7)) RETURNS varchar AS $$
 	DECLARE
 		conduCedula ALIAS FOR $1;
@@ -164,6 +186,9 @@ CREATE OR REPLACE FUNCTION TaxiDisp (varchar(10),varchar(7)) RETURNS varchar AS 
 	END
 $$ LANGUAGE plpgsql;
 
+-- Función que agrega un taxi (Es utilizada en "agregar taxi")
+-- Si el taxi ya existe se retorna un mensaje que indica que ya existe, en caso contrario, se agrega y
+--se indica que el taxi fue creado
 CREATE OR REPLACE FUNCTION AddTaxi (varchar(7),varchar(10),varchar(10),
 									   varchar(4), varchar(7),varchar(20)) RETURNS varchar AS $$
 	DECLARE
@@ -191,6 +216,9 @@ $$ LANGUAGE plpgsql;
 -----------------------------------------------------------------------------------------
 ------------------------------------- USUARIO -------------------------------------------
 -----------------------------------------------------------------------------------------
+-- Función que agrega un usuario (Es utilizada en registro de usuario)
+-- Si el usuario ya existe se retorna un Mensaje que indica que ya existe, en caso contrario, se agrega y
+--se le indica al usuario que fue creado
 CREATE OR REPLACE FUNCTION AddUser (varchar(10), varchar(50), varchar(50), varchar(100),
 								   	 varchar(50), varchar(10), date, varchar(10), varchar(10)) RETURNS varchar AS $$
 	DECLARE
@@ -219,6 +247,8 @@ CREATE OR REPLACE FUNCTION AddUser (varchar(10), varchar(50), varchar(50), varch
 	END
 $$ LANGUAGE plpgsql;
 
+-- Función de validación del usuario (usada en login), revisa si existe algun registro en la relacion Usuario con
+--el numero de celular (userCel) y contraseña (userPass) dados, retorna True si el usuario existe, False lo contrario
 CREATE OR REPLACE FUNCTION ValidateUser (varchar(10),varchar(50)) RETURNS boolean AS $$
 	DECLARE
 		userCel ALIAS FOR $1;
@@ -235,6 +265,10 @@ CREATE OR REPLACE FUNCTION ValidateUser (varchar(10),varchar(50)) RETURNS boolea
 	END
 	$$ LANGUAGE plpgsql;
 	
+-- Funcion que se encarga de solicitar la terminacion un servicio indicando la "solicitudFin" de parte del usuario
+-- Actualmente esta función no esta siendo utilizada
+-- La función no es necesaria con el modelo de "siempre se presta un servicio", puesto que al terminarse el servicio se dio por dado y 
+--no necesita el concentimiento de la otra parte
 CREATE OR REPLACE FUNCTION askEndServiceU (varchar(10),varchar(8)) RETURNS boolean AS $$
 	DECLARE
 		numCelUs ALIAS FOR $1;
@@ -250,6 +284,8 @@ CREATE OR REPLACE FUNCTION askEndServiceU (varchar(10),varchar(8)) RETURNS boole
 	END
 $$ LANGUAGE plpgsql;
 
+-- Funcion que se encarga de terminar un servicio por parte del usuario
+-- Actualmente esta función no esta siendo utilizada
 CREATE OR REPLACE FUNCTION endServiceU (varchar(10),varchar(8)) RETURNS boolean AS $$
 	DECLARE
 		numCelUs ALIAS FOR $1;
@@ -265,6 +301,7 @@ CREATE OR REPLACE FUNCTION endServiceU (varchar(10),varchar(8)) RETURNS boolean 
 	END
 $$ LANGUAGE plpgsql;
 
+-- Funcion que agrega un registro de peticion de servicio en la relacion servicio
 CREATE OR REPLACE FUNCTION AskServiceU (integer,integer,varchar(20),varchar(6),date,varchar(5),float,float,float,float,varchar(10),varchar(10)) RETURNS boolean AS $$
 	DECLARE
 		SCostoC ALIAS FOR $1;

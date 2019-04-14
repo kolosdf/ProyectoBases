@@ -1,7 +1,7 @@
 import React from 'react';
 import './Up&BottomMenu.css';
 import UpMenu from '../components/SMenuBar';
-import wait from '../components/CMainWait';
+import MWait from '../components/CMainWait';
 import BottomMenu from '../components/BottomMenuBar';
 import { withRouter } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ class AddPlacesPage extends React.Component{
                 <div className='main-container'>
                     <UpMenu />
 
-                    <wait />
+                    <MWait />
                 </div>
                 <BottomMenu />
             </div>

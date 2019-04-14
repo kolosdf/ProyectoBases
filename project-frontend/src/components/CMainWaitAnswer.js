@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid,Button,Image, Label, Rating} from 'semantic-ui-react'
+import { Grid,Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
 import TaxiTag from './../images/3TaxiTag.png';
 import ImgRespuesta from './../images/esperandoRespuestaICON.png';
@@ -11,11 +11,6 @@ const style = {
     backgroundColor: '#FFCC00'
 };
 
-const styleButton = {
-    color: '#FFFFFF',
-    backgroundColor: '#FFCC00'
-};
-
 //Combobox con puntos de origen del usuario
 const options = ['No selected' , 'poner lugares del usuario']
 const defaultOption = options[0]
@@ -23,8 +18,7 @@ const defaultOption = options[0]
 class MainQualify extends React.Component{
     constructor(){
         super();
-
- }
+    }
 
     render(){
         return(
@@ -36,9 +30,8 @@ class MainQualify extends React.Component{
                 </Grid.Row>
 
                 <Grid.Row>
-                <Image src={ImgRespuesta}/>
-                    </Grid.Row>
-
+                    <Image src={ImgRespuesta}/>
+                </Grid.Row>
             </Grid>
         );
     }
