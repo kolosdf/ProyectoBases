@@ -6,19 +6,18 @@ DROP TABLE IF EXISTS Servicio CASCADE;
 DROP TABLE IF EXISTS Usuario CASCADE;
 DROP TABLE IF EXISTS Origenes CASCADE;
 DROP TABLE IF EXISTS Destinos CASCADE;
+CREATE EXTENSION IF NOT EXISTS postgis;
 
 CREATE TABLE Conductor (
 	cedula varchar(10) NOT NULL,
 	numCelular varchar(10) NOT NULL,
-	nombre varchar(30) NOT NULL,
-	apellido varchar(30) NOT NULL,
+	nombre varchar(50) NOT NULL,
+	apellido varchar(50) NOT NULL,
 	disponibilidad varchar(10) NOT NULL,
 	contrasena varchar(50) NOT NULL,
 	fechaNac date NOT NULL,
-	direccion varchar(50) NOT NULL,
 	email varchar(100) NOT NULL,
 	genero varchar(10) NOT NULL,
-	modoPago varchar(8) NOT NULL,
 	numeroC varchar(10),
 	banco varchar(20),
 
@@ -31,7 +30,7 @@ CREATE TABLE Taxi (
 	modelo varchar(10) NOT NULL,
 	ano varchar(4) NOT NULL,
 	baul varchar(7) NOT NULL,
-	soat varchar(10) NOT NULL,
+	soat varchar(20) NOT NULL,
 
 	PRIMARY KEY (placa)
 );
@@ -49,8 +48,7 @@ CREATE TABLE Registro (
 	idR SERIAL,
 	fecha date NOT NULL,
 	hora varchar(10) NOT NULL,
-	coordenadaX float NOT NULL,
-	coordenadaY float NOT NULL,
+	coordenadas geometry NOT NULL,
 	placa varchar(6) NOT NULL,
 
 	PRIMARY KEY (idR),
@@ -59,15 +57,15 @@ CREATE TABLE Registro (
 
 CREATE TABLE Usuario (
 	numCel varchar(10) NOT NULL,
-	nombre varchar(30) NOT NULL,
-	apellido varchar(30) NOT NULL,
-	dirResidencia varchar(20) NOT NULL,
+	nombre varchar(50) NOT NULL,
+	apellido varchar(50) NOT NULL,
+	dirResidencia varchar(100) NOT NULL,
 	contrasena varchar(50) NOT NULL,
 	tipoT varchar(10) NOT NULL,
 	fechaVencT date,
 	numeroT varchar(10) NOT NULL,
 	numSeguridadT varchar(10) NOT NULL,
-	coordenadaGPS varchar(20),
+	coordenadaGPS geometry,
 
 	PRIMARY KEY (numCel)
 );
@@ -83,10 +81,8 @@ CREATE TABLE Servicio (
 	horaIni varchar(5) NOT NULL,
 	fechaFin date,
 	horaFin varchar(5),
-	inicioRutaX float NOT NULL,
-	inicioRutaY float NOT NULL,
-	finRutaX float NOT NULL,
-	finRutaY float NOT NULL,
+	inicioRuta geometry NOT NULL,
+	finRuta geometry NOT NULL,
 	cedula varchar(10) NOT NULL,
 	numCel varchar(10) NOT NULL,
 
@@ -96,19 +92,17 @@ CREATE TABLE Servicio (
 );
 
 CREATE TABLE Origenes (	
-	origenX float NOT NULL,
-	origenY float NOT NULL,
+	origen geometry NOT NULL,
 	numCel varchar(10) NOT NULL,
 
-	PRIMARY KEY (origenX,origenY),
+	PRIMARY KEY (origen),
 	FOREIGN KEY (numCel) REFERENCES Usuario(numCel)
 );
 
 CREATE TABLE Destinos (
-	destinoX float NOT NULL,
-	destinoY float NOT NULL,
+	destino geometry NOT NULL,
 	numCel varchar(10) NOT NULL,
 
-	PRIMARY KEY (destinoX,destinoY),
+	PRIMARY KEY (destino),
 	FOREIGN KEY (numCel) REFERENCES Usuario(numCel)
 );

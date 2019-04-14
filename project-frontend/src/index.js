@@ -17,14 +17,14 @@ import SignInConduPage from './PagesComponents/SignInDriverPage';
 import ConduMiTaxiPage from './PagesComponents/ConduMiTaxiPage';
 import ConduMiTaxiAddPage from './PagesComponents/ConduMiTaxiAddPage';
 import ConduUbication from './PagesComponents/ConduUbication';
-
+import CMainMap from './components/CMainMap';
 
 class Login extends React.Component {  
   render() {      
       return (
         <BrowserRouter>
           <Switch>
-            <Route exact path='/' component={ () => <MainAppPage />} />
+            <Route exact path='/' component={ () => <MainAppPage/>} />
             
             <Route exact path='/SignIn/User' component={ () => <SignInUserPage /> } />
             <Route exact path='/User/Main' component={ () => <MainUserPage /> } />

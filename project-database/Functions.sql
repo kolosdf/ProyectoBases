@@ -1,7 +1,7 @@
 ------------------------------------ CONDUCTOR ------------------------------------------ 
 -----------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION AddDriver (varchar(10),varchar(10), varchar(30), varchar(30), varchar(10),
-								   	 varchar(50), date, varchar(50), varchar(100),varchar(10),varchar(8),varchar(10),varchar(20)) RETURNS varchar AS $$
+CREATE OR REPLACE FUNCTION AddDriver (varchar(10),varchar(10), varchar(50), varchar(50), varchar(10),
+								   	 varchar(50), date, varchar(100),varchar(10),varchar(10),varchar(20)) RETURNS varchar AS $$
 	DECLARE
 		Ccedula ALIAS FOR $1;
 		CnumCel ALIAS FOR $2;
@@ -10,12 +10,10 @@ CREATE OR REPLACE FUNCTION AddDriver (varchar(10),varchar(10), varchar(30), varc
 		Cdisponibilidad ALIAS FOR $5;
 		Ccontra ALIAS FOR $6;
 		CfechaNac ALIAS FOR $7;
-		Cdireccion ALIAS FOR $8;
-		Cemail ALIAS FOR $9;
-		Cgenero ALIAS FOR $10;
-		CmodoPago ALIAS FOR $11;
-		CnumeroC ALIAS FOR $12;
-		Cbanco ALIAS FOR $13;
+		Cemail ALIAS FOR $8;
+		Cgenero ALIAS FOR $9;
+		CnumeroC ALIAS FOR $10;
+		Cbanco ALIAS FOR $11;
 		
 	BEGIN
 		IF EXISTS (SELECT * FROM Conductor WHERE cedula= Ccedula)
@@ -24,7 +22,7 @@ CREATE OR REPLACE FUNCTION AddDriver (varchar(10),varchar(10), varchar(30), varc
 		END IF;
 		
 		INSERT INTO public.conductor
-			VALUES (Ccedula,CnumCel,Cnombre,Capellido,Cdisponibilidad,Ccontra,CfechaNac,Cdireccion,Cemail,Cgenero,CmodoPago,CnumeroC,Cbanco);
+			VALUES (Ccedula,CnumCel,Cnombre,Capellido,Cdisponibilidad,Ccontra,CfechaNac,Cemail,Cgenero,CnumeroC,Cbanco);
 		
 		RETURN 'Usuario Creado';
 		
@@ -167,7 +165,7 @@ CREATE OR REPLACE FUNCTION TaxiDisp (varchar(10),varchar(7)) RETURNS varchar AS 
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION AddTaxi (varchar(7),varchar(10),varchar(10),
-									   varchar(4), varchar(7),varchar(10)) RETURNS varchar AS $$
+									   varchar(4), varchar(7),varchar(20)) RETURNS varchar AS $$
 	DECLARE
 		Tplaca ALIAS FOR $1;
 		Tmarca ALIAS FOR $2;
@@ -193,7 +191,7 @@ $$ LANGUAGE plpgsql;
 -----------------------------------------------------------------------------------------
 ------------------------------------- USUARIO -------------------------------------------
 -----------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION AddUser (varchar(10), varchar(30), varchar(30), varchar(20),
+CREATE OR REPLACE FUNCTION AddUser (varchar(10), varchar(50), varchar(50), varchar(100),
 								   	 varchar(50), varchar(10), date, varchar(10), varchar(10)) RETURNS varchar AS $$
 	DECLARE
 		UnumCel ALIAS FOR $1;
@@ -285,8 +283,8 @@ CREATE OR REPLACE FUNCTION AskServiceU (integer,integer,varchar(20),varchar(6),d
 		
 	BEGIN
 		INSERT INTO public.servicio(
-			costocarr, kmrecorrido, estado, contador, fechaini, horaini, iniciorutax, iniciorutay, finrutax, finrutay, cedula, numcel)
-			VALUES (SCostoC, SKmRecorrido, SEstado, SContador, SFechaIn, SHoraIn, SInicioRX, SInicioRY, SFinRX, SFinY, SCedula, SCel);
+			costocarr, kmrecorrido, estado, contador, fechaini, horaini, inicioruta, finruta, cedula, numcel)
+			VALUES (SCostoC, SKmRecorrido, SEstado, SContador, SFechaIn, SHoraIn, geometry(point(SInicioRX, SInicioRY)), geometry(point(SFinRX, SFinY)), SCedula, SCel);
 		
 		RETURN true;
 		

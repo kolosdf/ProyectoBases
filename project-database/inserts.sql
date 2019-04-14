@@ -1,6 +1,6 @@
 INSERT INTO public.conductor(
-	cedula, numcelular, nombre, apellido, disponibilidad, contrasena, fechanac, direccion, email, genero, modopago, numeroc, banco)
-	VALUES ('1144211502', '3148080739', 'Juan Felipe', 'Gil Londono', 'ocupado', '123', '1999-07-12', 'cll 72 # 4', 'juan.felipe.gil@correounivalle.edu.co', 'Masculino', 'debito', '123456789', 'Bancolombia');
+	cedula, numcelular, nombre, apellido, disponibilidad, contrasena, fechanac, email, genero, numeroc, banco)
+	VALUES ('1144211502', '3148080739', 'Juan Felipe', 'Gil Londono', 'ocupado', '123', '1999-07-12', 'juan.felipe.gil@correounivalle.edu.co', 'Masculino', '123456789', 'Bancolombia');
 
 
 INSERT INTO public.usuario(

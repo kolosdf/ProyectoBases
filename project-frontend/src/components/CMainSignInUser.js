@@ -143,6 +143,7 @@ class SignInUser extends React.Component{
                     if(mensaje === '422'){
                         alert('Campos Invalidos')
                     }else if(mensaje === 'Usuario Creado'){
+                        alert(mensaje);
                         this.props.history.push({pathname:'/User'});
                     }else{
                         alert('El numero de celular ya está registrado');
