@@ -10,3 +10,4 @@ Los documentos que podemos encontrar son:
 * Manual de usuario.pdf - NotThatEasyTaxi.pdf: Manual de usuario para el manejo de la aplicación
 * ManualTecnico.md - Manual Tecnico de la aplicación
 * Proyecto Bases de datos - Primera Entrega -- Iteración 0.pdf: Documento realizado para la primera entrega del proyecto (Iteración 0)
+* docker-compose.yml: Remítase al manual tecnico para más información
