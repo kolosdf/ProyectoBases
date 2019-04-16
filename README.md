@@ -11,3 +11,4 @@ Los documentos que podemos encontrar son:
 * ManualTecnico.md - Manual Tecnico de la aplicación
 * Proyecto Bases de datos - Primera Entrega -- Iteración 0.pdf: Documento realizado para la primera entrega del proyecto (Iteración 0)
 * docker-compose.yml: Remítase al manual técnico (ManualTecnico.md) para más información
+* LICENSE: Licencia de la aplicación
